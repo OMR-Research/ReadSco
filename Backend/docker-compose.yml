@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  gateway:
+    build:
+      context: Gateway&Discovery/
+    ports:
+      - "4000:80"
+    restart: always 
+    depends_on:
+      - translationhub
+  translationhub:
+    build:
+      context: TranslationHUB/
+    ports:
+      - "3000:3000"
+      - "4040:4040"
+    restart: always 
+    depends_on:
+      - pythonentry
+  
+  pythonentry:
+    build:
+      context: PythonEntry/
+    ports:
+      - "5000:5000"
+
+  omrservice:
+    build:
+      context: OMRFirstLayer/
+    ports:
+      - "8000:8000"
