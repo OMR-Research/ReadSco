@@ -1,21 +1,25 @@
-<ion-header>
-    <ion-tabs style="display: contents;">
-    <ion-tab-bar slot="top" color="primary">
-
-      <ion-tab-button class="disable-ripple" href="https://example.com">
-        <ion-label color="light">ANALYSE SCORE</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button class="disable-ripple" tab="home">
-        <ion-router-outlet name="one"></ion-router-outlet>
-        <ion-label color="light">THE PROJECT</ion-label>
-      </ion-tab-button>
+<mat-toolbar color="accent">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <h2>ReadSCO</h2>
+  <div fxFlex fxLayout fxLayoutAlign="center center" fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li>
+        <a routerLink="/scoreanalysis">Analyse score</a>
+      </li>
+      <li>
+        <a>The project</a>
+      </li>
+      <li>
+        <a routerLink="/training">Register</a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <mat-icon>account_circle</mat-icon>
+  </div>
   
-      <ion-tab-button class="disable-ripple" tab="settings">
-        <ion-router-outlet name="one"></ion-router-outlet>
-        <ion-label color="light">REGISTER</ion-label>
-      </ion-tab-button>
-  
-    </ion-tab-bar>
-  </ion-tabs>
-  </ion-header>
+</mat-toolbar>

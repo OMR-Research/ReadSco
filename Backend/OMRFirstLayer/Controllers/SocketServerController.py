@@ -27,7 +27,8 @@ def handleDisconnection():
 @socketServer.on('scoreTranslation')                                # The event to start our partiture evaluation system is 'js_partitutreEval'
 def sendResultToJS(message):
     prediction = predictor.make_prediction(message["message"])
-    SendEncodingRequest(message["id"], prediction)
+    prediction = predictor.benchmark_beamdecoder(message["message"])
+    #SendEncodingRequest(message["id"], prediction)
     response = {"id": message["id"], "message": prediction}
     send_result_to_JSServer(response)
 

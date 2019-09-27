@@ -1,0 +1,33 @@
+*
+{
+	box-sizing: border-box;
+}
+
+article 
+{
+    align-content: center;
+    text-align: center;
+}
+
+.croppingZone
+{
+    text-align: center;
+    margin-top: 3em;
+}
+    .croppingZone>image-cropper
+    {
+        display: inline-block;
+        width: 90%;
+    }
+
+div 
+{
+    margin-top: 2em;
+    text-align: center
+}
+    div > ion-button
+    {
+        display: inline-block;
+        width: 200px;
+        margin: .5em;
+    }

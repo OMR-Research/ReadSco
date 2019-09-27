@@ -1,0 +1,23 @@
+<section>
+      <br>
+      <article>
+            <h1>2. Select your score area</h1>
+            <p>Select the zone of your image where the score is. Please try to be precise with the selection in order to avoid further recognition issues</p>
+      </article>
+      <article class="croppingZone">
+            <image-cropper
+                  [imageBase64]="imageSRC"
+                  [maintainAspectRatio]="false"
+                  [aspectRatio]="16/9"
+                  format="png"
+                  (imageCropped)="imageCropped($event)"
+                  (imageLoaded)="imageLoaded()"
+                  (cropperReady)="cropperReady()"
+                  (loadImageFailed)="loadImageFailed()">>
+            </image-cropper>
+      </article>
+      <div>
+            <ion-button color="tertiary" (click)="GoBack()">Cancel</ion-button>
+            <ion-button color="primary" (click)="ToFinalScreen()">Crop</ion-button>
+      </div>
+</section>

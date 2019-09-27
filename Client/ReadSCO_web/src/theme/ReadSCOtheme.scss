@@ -1,0 +1,111 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$md-mreadscopalette: (
+    50 : #effcfb,
+    100 : #d8f6f4,
+    200 : #bef1ed,
+    300 : #a4ebe6,
+    400 : #91e6e0,
+    500 : #7de2db,
+    600 : #75dfd7,
+    700 : #6adad2,
+    800 : #60d6cd,
+    900 : #4dcfc4,
+    A100 : #ffffff,
+    A200 : #f7fffe,
+    A400 : #c4fffa,
+    A700 : #abfff8,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$md-mreadscodarker: (
+    50 : #e2e7e7,
+    100 : #b7c2c4,
+    200 : #88999c,
+    300 : #587074,
+    400 : #345257,
+    500 : #103339,
+    600 : #0e2e33,
+    700 : #0c272c,
+    800 : #092024,
+    900 : #051417,
+    A100 : #58e0ff,
+    A200 : #25d7ff,
+    A400 : #00c4f1,
+    A700 : #00afd7,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #ffffff,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+
+$md-mreadscoaccent: (
+    50 : #fae4ec,
+    100 : #f4bcd0,
+    200 : #ec8fb1,
+    300 : #e46292,
+    400 : #df407a,
+    500 : #d91e63,
+    600 : #d51a5b,
+    700 : #cf1651,
+    800 : #ca1247,
+    900 : #c00a35,
+    A100 : #ffebef,
+    A200 : #ffb8c6,
+    A400 : #ff859d,
+    A700 : #ff6c88,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+$readsco-app-primary: mat-palette($md-mreadscopalette, 500, 100, 900);
+$readsco-app-secondary:  mat-palette($md-mreadscodarker, 500, 100, 900);
+$readsco-app-warn:    mat-palette($md-mreadscoaccent, 500, 100, 900);
+
+$readsco-app-theme: mat-light-theme($readsco-app-primary, $readsco-app-secondary, $readsco-app-warn);
+
+@include angular-material-theme($readsco-app-theme);
