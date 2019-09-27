@@ -1,0 +1,6 @@
+.DS_Store
+Config/
+node_modules/
+__pycache__/
+temp/
+build/
