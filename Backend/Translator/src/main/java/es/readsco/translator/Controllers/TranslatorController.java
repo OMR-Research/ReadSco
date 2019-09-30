@@ -12,10 +12,7 @@ import es.ua.dlsi.im3.core.score.NotationType;
 import es.ua.dlsi.im3.core.score.PositionInStaff;
 import es.ua.dlsi.im3.omr.encoding.agnostic.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -56,6 +53,12 @@ public class TranslatorController
         String l_MEIResponse = m_notationModel.getMEINotation(l_semantictransduction.getSemanticEncoding(), l_notationType);
 
         return new StringResponse(l_MEIResponse);
+    }
+
+    @GetMapping(path = "test")
+    public String test()
+    {
+        return "Received";
     }
 
 }
