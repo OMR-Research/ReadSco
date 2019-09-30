@@ -1,7 +1,7 @@
 # ReadSco
 ### Open source web based cross-platform OMR tool
 
-This is a project currently in early development.
+**This is a project currently in early development.**
 To run all the application systems or test specific microservices it is required to have installed
 
 * NodeJS and NPM
