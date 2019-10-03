@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ScoreanalysisPage } from '../scoreanalysis.page';
 
-@Injectable({
-    providedIn: "root"
-})
+@Injectable()
 export class ComponentLoading
 {
     private m_componentHook : ScoreanalysisPage;

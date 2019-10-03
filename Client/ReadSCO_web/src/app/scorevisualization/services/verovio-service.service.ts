@@ -3,10 +3,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 declare var verovio: any;
 
-@Injectable({
-  providedIn: 'root'
-})
+let optionsScore = {
+  scale: 100,
+  adjustPageHeight: true,
+  breaks: 'encoded',
+  evenNoteSpacing: 1
+};
 
+@Injectable()
 export class VerovioService 
 {
   private vrvToolkit : any
@@ -19,7 +23,7 @@ export class VerovioService
   //Returns a rendered score SVG
   renderScore(data)
   {
-    console.log(data);
+    this.vrvToolkit.setOptions(optionsScore);
     this.vrvToolkit.loadData(data);
     let svgToRender = this.vrvToolkit.renderToSVG(1, {});
     return this.sanitizer.bypassSecurityTrustHtml(svgToRender);

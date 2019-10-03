@@ -1,5 +1,19 @@
 <article>
-  <div [innerHTML]="renderedSVG">
+  <section>
+      <div id="container" [innerHTML]="renderedSVG">
 
-  </div>
+        </div>
+  </section>
+  <section>
+      <ion-button color="primary"><mat-icon>play_arrow</mat-icon></ion-button>
+      <ion-button color="primary" (click)="onDownloadClick()" interface="action-sheet" aria-haspopup="dialog">Download as...</ion-button>
+      
+      <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" hidden>
+          <ion-select-option value="MEI">MEI</ion-select-option>
+          <ion-select-option value="**kern">**Kern</ion-select-option>
+          <ion-select-option value="**kern">MIDI</ion-select-option>
+      </ion-select>
+      
+      <ion-button color="primary">Save Score</ion-button>
+  </section>
 </article>

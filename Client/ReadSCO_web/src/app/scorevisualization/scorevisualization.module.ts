@@ -9,6 +9,8 @@ import { ScorevisualizationPage } from './scorevisualization.page';
 import { MenuComponent } from '../menu/menu.component';
 import { MenuModule } from '../menu/menu.module';
 import { ScoreRenderComponent } from './score-render/score-render.component';
+import { VerovioService } from './services/verovio-service.service';
+import { MaterialModule } from '../material.module';
 
 const routes: Routes = [
   {
@@ -23,8 +25,10 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    MenuModule
+    MenuModule,
+    MaterialModule
   ],
-  declarations: [ScorevisualizationPage, ScoreRenderComponent]
+  declarations: [ScorevisualizationPage, ScoreRenderComponent],
+  providers: [VerovioService]
 })
 export class ScorevisualizationPageModule {}

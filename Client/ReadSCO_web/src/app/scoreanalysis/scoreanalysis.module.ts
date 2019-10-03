@@ -15,6 +15,7 @@ import { ComponentLoadingDirective } from './directives/component-loading.direct
 import { CropComponent } from './crop/crop.component';
 import { SendComponent } from './send/send.component';
 import { MenuModule } from '../menu/menu.module';
+import { ComponentLoading } from './services/componentloading.service';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
     MenuModule
   ],
   declarations: [ScoreanalysisPage, UploadComponent, CropComponent, SendComponent, ComponentLoadingDirective],
-  entryComponents: [UploadComponent, CropComponent, SendComponent]
+  entryComponents: [UploadComponent, CropComponent, SendComponent],
+  providers: [ComponentLoading]
 })
 export class ScoreanalysisPageModule {}
