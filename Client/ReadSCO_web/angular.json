@@ -41,7 +41,8 @@
               }
             ],
             "scripts": [
-              "lib/verovio-toolkit.js"
+              "lib/verovio-toolkit.js",
+              "lib/soundfont-player.js"
             ]
           },
           "configurations": {

@@ -17,6 +17,7 @@ import * as fromApp from './store/app.reducer'
 
 import { EffectsModule } from '@ngrx/effects';
 import {ScoreAnalysisEffects} from './scoreanalysis/store/scoreanalysis.effects'
+import { ScoreVisualizationEffects } from './scorevisualization/store/scorevisualization.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,7 @@ import {ScoreAnalysisEffects} from './scoreanalysis/store/scoreanalysis.effects'
     MaterialModule, 
     FlexLayoutModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([ScoreAnalysisEffects])
+    EffectsModule.forRoot([ScoreAnalysisEffects, ScoreVisualizationEffects])
     ],
   providers: [
     StatusBar,

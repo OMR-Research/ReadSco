@@ -1,7 +1,6 @@
 import {Effect, Actions, ofType} from '@ngrx/effects'
 import * as SAActions from './scoreanalysis.actions'
-import { switchMap, catchError, map, tap } from 'rxjs/operators';
-import { of, Observable, Subscriber } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 
 @Injectable()

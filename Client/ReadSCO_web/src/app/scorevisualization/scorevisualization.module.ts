@@ -11,6 +11,7 @@ import { MenuModule } from '../menu/menu.module';
 import { ScoreRenderComponent } from './score-render/score-render.component';
 import { VerovioService } from './services/verovio-service.service';
 import { MaterialModule } from '../material.module';
+import { MidiPlayerService } from './services/midi-player.service';
 
 const routes: Routes = [
   {
@@ -29,6 +30,6 @@ const routes: Routes = [
     MaterialModule
   ],
   declarations: [ScorevisualizationPage, ScoreRenderComponent],
-  providers: [VerovioService]
+  providers: [VerovioService, MidiPlayerService]
 })
 export class ScorevisualizationPageModule {}

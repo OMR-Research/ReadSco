@@ -5,7 +5,7 @@
         </div>
   </section>
   <section>
-      <ion-button color="primary"><mat-icon>play_arrow</mat-icon></ion-button>
+      <ion-button color="primary" (click)="startPlaying()"><mat-icon>play_arrow</mat-icon></ion-button>
       <ion-button color="primary" (click)="onDownloadClick()" interface="action-sheet" aria-haspopup="dialog">Download as...</ion-button>
       
       <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" hidden>
@@ -15,5 +15,11 @@
       </ion-select>
       
       <ion-button color="primary">Save Score</ion-button>
+  </section>
+
+  <section>
+    <div style="height: 30px;">
+      <div id="player" style="z-index: 20; position: absolute; display: none;"></div>
+    </div>
   </section>
 </article>

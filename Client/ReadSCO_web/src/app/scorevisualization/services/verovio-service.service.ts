@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 declare var verovio: any;
+declare var Soundfont:any;
 
 let optionsScore = {
   scale: 100,
@@ -27,5 +28,10 @@ export class VerovioService
     this.vrvToolkit.loadData(data);
     let svgToRender = this.vrvToolkit.renderToSVG(1, {});
     return this.sanitizer.bypassSecurityTrustHtml(svgToRender);
+  }
+
+  getMIDI()
+  {
+    return this.vrvToolkit.renderToMIDI()
   }
 }
