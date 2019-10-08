@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2 } from '@angular/core';
 
 import * as fromApp from './../../store/app.reducer'
 import * as SVActions from './../store/scorevisualization.actions'
@@ -16,7 +16,13 @@ export class MidiPlayerService {
 
   timer:number
 
+  public noteList;
+
   midiNotes: any[] = []
+
+  renderer : Renderer2;
+
+  highlited: boolean;
 
   constructor(private store : Store<fromApp.AppState>) 
   { 
@@ -30,6 +36,11 @@ export class MidiPlayerService {
     })
 
     this.store.dispatch(new SVActions.MidiPlayerLoadStart())
+  }
+
+  setList(notelist)
+  {
+    this.noteList = notelist.reverse();
   }
 
   loadScore(midiScore)
@@ -75,15 +86,48 @@ export class MidiPlayerService {
     if(midiNoteToPlay.name == "Note on")
     {
       this.midiPlayer.play(midiNoteToPlay.noteName)
-      this.midiNotes.pop()
+        if(this.highlited)
+        {  
+          this.unhighlightNote(this.noteList.length -1)
+          this.unhighlightNote(this.noteList.length -2)
+          this.noteList.pop()
+          this.noteList.pop()
+          this.highlightNote(this.noteList.length - 1)
+          this.highlightNote(this.noteList.length -2)
+        }
+        else
+        {
+          this.highlightNote(this.noteList.length - 1)
+          this.highlightNote(this.noteList.length - 2)
+          this.highlited = true
+        }
+      
+        this.midiNotes.pop()
     }
     else if(midiNoteToPlay.name == "End of Track")
     {
       console.log('Stopping...')
       clearInterval(this.timer)
+      this.unhighlightNote(this.noteList.length -1)
+      this.unhighlightNote(this.noteList.length -2)
       this.midiNotes = []  
     }
     else
       this.midiNotes.pop()
+  }
+
+  unhighlightNote(index)
+  {
+    this.renderer.setAttribute(this.noteList[index], "fill", "#000");
+  }
+
+  highlightNote(index)
+  {
+    this.renderer.setAttribute(this.noteList[index], "fill", "#f00");
+  }
+
+  setRender(renderer)
+  {
+    this.renderer = renderer
   }
 }

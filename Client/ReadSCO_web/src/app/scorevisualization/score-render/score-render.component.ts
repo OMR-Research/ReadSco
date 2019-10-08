@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2} from '@angular/core';
 import { VerovioService } from '../services/verovio-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MidiPlayerService } from '../services/midi-player.service';
@@ -10,7 +10,7 @@ import { MidiPlayerService } from '../services/midi-player.service';
   styleUrls: ['./score-render.component.scss'],
 })
 
-export class ScoreRenderComponent implements OnInit {
+export class ScoreRenderComponent implements OnInit, AfterViewInit {
 
   private data = `**kern
 4c
@@ -25,14 +25,33 @@ export class ScoreRenderComponent implements OnInit {
   
   public renderedSVG;
 
-  constructor(private verovioService : VerovioService, private sanitizer : DomSanitizer, private midiService : MidiPlayerService) 
+  constructor(private verovioService : VerovioService, private sanitizer : DomSanitizer, private midiService : MidiPlayerService,
+    private renderer: Renderer2) 
   { 
+    this.midiService.setRender(renderer)
   }
 
   ngOnInit() 
   {
     this.renderedSVG = this.verovioService.renderScore(this.data)
     this.midiService.loadScore(this.verovioService.getMIDI())
+  }
+
+  ngAfterViewInit()
+  {
+    let noteList = document.querySelectorAll('.note');
+    let definitiveList = []
+    noteList.forEach((note)=>{
+      definitiveList.push(note.children[0]);
+      definitiveList.push(note.children[1]);
+    })
+
+    this.midiService.setList(definitiveList)
+  }
+
+  getNotes()
+  {
+
   }
 
   onDownloadClick()
