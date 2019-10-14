@@ -75,7 +75,7 @@ export class MidiPlayerService {
         this.midiNotes.splice(i, 1)
       }
     }
-    this.timer = setInterval(()=>{this.play();}, 0.8 * 1000)
+    this.timer = setInterval(()=>{this.play();}, 0.5 * 1000)
   }
 
   play()
