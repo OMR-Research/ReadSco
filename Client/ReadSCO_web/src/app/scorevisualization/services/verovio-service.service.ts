@@ -5,8 +5,8 @@ declare var verovio: any;
 declare var Soundfont:any;
 
 let optionsScore = {
-  scale: 100,
-  adjustPageHeight: true,
+  scale: 70,
+  adjustPageHeight: 1,
   breaks: 'encoded',
   evenNoteSpacing: 1
 };
@@ -27,7 +27,7 @@ export class VerovioService
     this.vrvToolkit.setOptions(optionsScore);
     this.vrvToolkit.loadData(data);
     let svgToRender = this.vrvToolkit.renderToSVG(1, {});
-    return this.sanitizer.bypassSecurityTrustHtml(svgToRender);
+    return svgToRender
   }
 
   getMIDI()

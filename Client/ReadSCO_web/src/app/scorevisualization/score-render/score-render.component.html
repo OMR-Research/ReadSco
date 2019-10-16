@@ -1,22 +1,40 @@
 <article>
   <section>
-      <div id="container" [innerHTML]="renderedSVG">
-
-        </div>
+      <mat-toolbar>
+          <div fxFlex fxLayout fxLayoutAlign="center center" fxHide.xs>
+              <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+                <li (click)="startPlaying()">
+                  <mat-icon>play_arrow</mat-icon>
+                </li>
+                <li>
+                    <mat-icon>pause</mat-icon>
+                </li>
+                <li>
+                    <mat-icon>stop_square</mat-icon>
+                </li>
+                <li class="separator"></li>
+                <li> 
+                    <mat-menu #appMenu="matMenu">
+                      <button mat-menu-item>MEI</button>
+                      <button mat-menu-item>MIDI</button>
+                      <button mat-menu-item>**Kern</button>
+                    </mat-menu>
+                    <a [matMenuTriggerFor]="appMenu">
+                      Download as...
+                    </a>
+                </li>
+                <li>
+                  <a routerLink="/training">Save Score</a>
+                </li>
+              </ul>
+            </div>
+      </mat-toolbar>
   </section>
   <section>
-      <ion-button color="primary" (click)="startPlaying()"><mat-icon>play_arrow</mat-icon></ion-button>
-      <ion-button color="primary" (click)="onDownloadClick()" interface="action-sheet" aria-haspopup="dialog">Download as...</ion-button>
-      
-      <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" hidden>
-          <ion-select-option value="MEI">MEI</ion-select-option>
-          <ion-select-option value="**kern">**Kern</ion-select-option>
-          <ion-select-option value="**kern">MIDI</ion-select-option>
-      </ion-select>
-      
-      <ion-button color="primary">Save Score</ion-button>
-  </section>
+      <div id="container" [innerHTML]="renderedSVG | safe: 'html'">
 
+      </div>
+  </section>
   <section>
     <div style="height: 30px;">
       <div id="player" style="z-index: 20; position: absolute; display: none;"></div>

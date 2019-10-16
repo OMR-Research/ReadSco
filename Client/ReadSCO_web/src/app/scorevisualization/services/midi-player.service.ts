@@ -17,12 +17,17 @@ export class MidiPlayerService {
   timer:number
 
   public noteList;
+  public originalNoteList;
 
+  loadedScoreMidiNotes: any[] = []
   midiNotes: any[] = []
 
   renderer : Renderer2;
 
   highlited: boolean;
+
+  tickTime: number;
+  tempo: number;
 
   constructor(private store : Store<fromApp.AppState>) 
   { 
@@ -30,17 +35,21 @@ export class MidiPlayerService {
       if(loadState.midiPlayer != null)
       {
         this.midiPlayer = loadState.midiPlayer;
+        this.tempo = 186.0;
+        this.tickTime = (60000.0 / (120.0 * this.tempo)) / 1000;
+        console.log(this.tickTime)
         console.log('Ready to play!!')
       }
         //this.midiPlayer.play('C4')
     })
 
     this.store.dispatch(new SVActions.MidiPlayerLoadStart())
+    this.midiCommandGiver = new Player()
   }
 
   setList(notelist)
   {
-    this.noteList = notelist.reverse();
+    this.originalNoteList = notelist.reverse()
   }
 
   loadScore(midiScore)
@@ -55,37 +64,41 @@ export class MidiPlayerService {
 
     let arrayBuffer = bytes.buffer;
 
-    this.midiCommandGiver = new Player()
-
     this.midiCommandGiver.loadArrayBuffer(arrayBuffer)
 
     this.midiCommandGiver.play()
 
-    this.midiNotes = this.midiCommandGiver.getEvents()
+    this.loadedScoreMidiNotes = this.midiCommandGiver.getEvents()
   }
 
   public startPlaying()
   {
-    this.midiNotes = this.midiNotes[1].reverse()
+    this.midiNotes = Object.assign([], this.loadedScoreMidiNotes[1])
+    this.midiNotes = this.midiNotes.reverse()
+
+    this.noteList = Object.assign([], this.originalNoteList)
+
     for(let i = 0; i < this.midiNotes.length; i++)
     {
-      if(this.midiNotes[i].name == "Note on" && this.midiNotes[i].velocity <= 0)
+      if((this.midiNotes[i].name == "Note on" && this.midiNotes[i].velocity <= 0))
       {
-        console.log('Deleting')
+        console.log('Deleting' + this.midiNotes[i].name)
         this.midiNotes.splice(i, 1)
       }
     }
-    this.timer = setInterval(()=>{this.play();}, 0.5 * 1000)
+
+    setTimeout(()=>{this.play();}, (this.tickTime * (this.midiNotes[0].tick - this.midiNotes[1].tick)) * 1000)
   }
 
   play()
   {
-    console.log('Playing...')
     let midiNoteToPlay = this.midiNotes[this.midiNotes.length - 1]
     console.log(midiNoteToPlay)
+    let timeout = 0;
     if(midiNoteToPlay.name == "Note on")
     {
       this.midiPlayer.play(midiNoteToPlay.noteName)
+      timeout = (this.tickTime * (this.midiNotes[this.midiNotes.length -2].tick - this.midiNotes[this.midiNotes.length -1].tick)) * 1000
         if(this.highlited)
         {  
           this.unhighlightNote(this.noteList.length -1)
@@ -103,6 +116,7 @@ export class MidiPlayerService {
         }
       
         this.midiNotes.pop()
+        setTimeout(()=>{this.play();}, timeout)
     }
     else if(midiNoteToPlay.name == "End of Track")
     {
@@ -110,10 +124,16 @@ export class MidiPlayerService {
       clearInterval(this.timer)
       this.unhighlightNote(this.noteList.length -1)
       this.unhighlightNote(this.noteList.length -2)
-      this.midiNotes = []  
+      this.midiNotes = []
+      this.highlited = false  
+      setTimeout(()=>{this.play();}, timeout)
     }
     else
+    {
       this.midiNotes.pop()
+      setTimeout(()=>{this.play();}, timeout)
+    }
+    
   }
 
   unhighlightNote(index)
@@ -123,7 +143,7 @@ export class MidiPlayerService {
 
   highlightNote(index)
   {
-    this.renderer.setAttribute(this.noteList[index], "fill", "#f00");
+    this.renderer.setAttribute(this.noteList[index], "fill", "#7DE2DB");
   }
 
   setRender(renderer)
