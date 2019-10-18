@@ -2,7 +2,7 @@
 ### Open source web based cross-platform OMR tool
 
 **This is a project currently in early development.**
-:warning: __*DO NOT TRY TO RUN IT, IT WON'T WORK ON YOUR LOCAL COMPUTERS TILL local_install.sh is updated*__
+:warning: __*DO NOT TRY TO RUN IT, IT WON'T WORK ON YOUR LOCAL COMPUTERS TILL local_install.sh is updated*__ 
 
 To run all the application systems or test specific microservices it is required to have installed
 
