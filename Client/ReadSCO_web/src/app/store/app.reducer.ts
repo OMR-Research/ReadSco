@@ -5,7 +5,7 @@ import * as fromScoreVisualization from '../scorevisualization/store/scorevisual
 export interface AppState
 {
     scoreAnalysis : fromScoreAnalysis.State;
-    scoreVisualization: fromScoreVisualization.State;
+    scoreVisualization: fromScoreVisualization.ScoreVisState;
 }
 
 export const appReducer : ActionReducerMap<AppState> = {

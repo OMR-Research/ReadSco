@@ -1,13 +1,16 @@
 import {Effect, Actions, ofType} from '@ngrx/effects'
 import * as SAActions from './scoreanalysis.actions'
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { ScoreAnalysisService } from '../services/scoreanalysis.service';
+import { ScoreAnalysisResponse } from './model/scoreanalysisResponse';
+import { ScoreRecognitionRequestEnd } from 'src/app/scorevisualization/store/scorevisualization.actions';
 
 @Injectable()
 export class ScoreAnalysisEffects
 {
     @Effect()
-    imageLoad = this.actions$.pipe(
+    imageLoad$ = this.actions$.pipe(
         ofType(SAActions.ActionType.IMAGE_LOAD_START),
         switchMap((imageLoadAction : SAActions.ImageLoadStart)=>{
             
@@ -21,7 +24,21 @@ export class ScoreAnalysisEffects
                         
         })
     );
-    constructor(private actions$ : Actions, private fileReader : FileReader)
+
+    @Effect()
+    attemptScoreAnalysis$ = this.actions$.pipe(
+        ofType(SAActions.ActionType.SCORE_ANALYSIS_START),
+        map((action: SAActions.StartScoreAnalysis) => action.payload),
+        switchMap(payload => {
+            return this.scoreAService.attemptScoreAnalysis$(payload).pipe(
+                map((response: ScoreAnalysisResponse) => {
+                    return new ScoreRecognitionRequestEnd(response.response);
+                })
+            )
+        })
+    )
+
+    constructor(private actions$ : Actions, private fileReader : FileReader, private scoreAService: ScoreAnalysisService)
     {
         fileReader = new FileReader();
     }

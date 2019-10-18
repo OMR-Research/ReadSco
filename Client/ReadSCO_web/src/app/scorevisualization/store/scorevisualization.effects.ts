@@ -18,7 +18,6 @@ export class ScoreVisualizationEffects
             })
         })
     )
-
     constructor(private actions$: Actions)
     {}
 }

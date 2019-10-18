@@ -1,15 +1,18 @@
 
 import * as fromSVActions from './scorevisualization.actions'
 
-export interface State
+export interface ScoreVisState
 {
     midiPlayer: any,
-    midiPlayerLoading: boolean
+    midiPlayerLoading: boolean,
+    scoreTranscription: string
 }
 
-const initialState : State = {
+const initialState : ScoreVisState = {
     midiPlayer: null,
-    midiPlayerLoading: false
+    midiPlayerLoading: false,
+    scoreTranscription: ""
+
 }
 
 export function ScoreVisualizationReducer( state = initialState, action : fromSVActions.ScoreVisualizationActions)
@@ -26,6 +29,11 @@ export function ScoreVisualizationReducer( state = initialState, action : fromSV
                 ...state,
                 midiPlayerLoading: false,
                 midiPlayer: action.payload
+            }
+        case fromSVActions.ActionType.SCORE_RECOGNITION_END:
+            return {
+                ...state,
+                scoreTranscription: action.payload
             }
         default:
             return state

@@ -18,6 +18,7 @@ import * as fromApp from './store/app.reducer'
 import { EffectsModule } from '@ngrx/effects';
 import {ScoreAnalysisEffects} from './scoreanalysis/store/scoreanalysis.effects'
 import { ScoreVisualizationEffects } from './scorevisualization/store/scorevisualization.effects';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,12 +31,14 @@ import { ScoreVisualizationEffects } from './scorevisualization/store/scorevisua
     MaterialModule, 
     FlexLayoutModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([ScoreAnalysisEffects, ScoreVisualizationEffects])
+    EffectsModule.forRoot([ScoreAnalysisEffects, ScoreVisualizationEffects]),
+    HttpClientModule
     ],
   providers: [
     StatusBar,
     SplashScreen,
     FileReader,
+    HttpClient,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

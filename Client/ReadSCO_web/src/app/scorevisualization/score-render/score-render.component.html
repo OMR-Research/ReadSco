@@ -31,8 +31,13 @@
       </mat-toolbar>
   </section>
   <section>
-      <div id="container" [innerHTML]="renderedSVG | safe: 'html'">
-
+      <div *ngIf="isScoreLoaded" id="container" [innerHTML]="renderedSVG | safe: 'html'">
+      </div>
+      <div *ngIf="!isScoreLoaded" id="loading">
+        <h2>The system is analyzing your score</h2>
+        <h3>Please wait...</h3>
+        <br>
+        <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
       </div>
   </section>
   <section>
