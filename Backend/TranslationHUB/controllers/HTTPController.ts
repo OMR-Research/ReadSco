@@ -39,9 +39,8 @@ class BasicHTTPController
 
     evalScore = (req: express.Request, res: express.Response)=>
     {
-        let image = fs.readFileSync(req.file.path);
-        let encoded_image = image.toString('base64');
-        this.m_socket.Emit('js_scoreEval', encoded_image, res);
+        let image = req.body.image;
+        this.m_socket.Emit('js_scoreEval', image, res);
     }
 
     getRouter()

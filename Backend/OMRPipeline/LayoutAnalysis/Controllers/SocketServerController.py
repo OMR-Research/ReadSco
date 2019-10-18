@@ -10,7 +10,7 @@ socketServer = SocketIO(app, async_mode="threading")
 
 predictor = LayoutAnalysis()
 
-@socketServer.on('layout_analyze')
+@socketServer.on('layoutAnalyze')
 def predictLayout(message):
     image, boundings = predictor.predict(message["message"])
     response = {"id": message["id"], "image": image.tolist(), "boundings": boundings}

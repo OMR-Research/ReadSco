@@ -44,7 +44,7 @@ class PythonSocket
         let responseObject = this.m_storage.Fetch(message.id);
         if(responseObject != undefined)
         {
-            responseObject.status(200).send(message.message);
+            responseObject.status(200).send({"response": message.message});
         }
     }
 

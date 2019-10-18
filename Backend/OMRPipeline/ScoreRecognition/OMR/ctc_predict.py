@@ -74,6 +74,9 @@ class Predictor:
     def make_prediction(self,imageToPredict):
         
         image = imageToPredict
+
+        #image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
         #We resize the image to the height TensorFlow is using
         image = self.__resize(image, self.HEIGHT)
         #We normalize the image
@@ -81,6 +84,8 @@ class Predictor:
         
         notNormalizedImage = 255. * image
         cv2.imwrite("test.png", notNormalizedImage)
+
+        print(image.shape)
 
         image = np.asarray(image).reshape(1, image.shape[0], image.shape[1], 1)
         seq_lengths = [image.shape[2] / self.WIDTH_REDUCTION]

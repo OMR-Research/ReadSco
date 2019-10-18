@@ -22,8 +22,7 @@ def handleDisconnection():
 
 @socketServer.on('js_scoreEval')                                # The event to start our partiture evaluation system is 'js_partitutreEval'
 def sendRequestToOMR(message):
-    #print(message)
-    emit_message_to_OMRMS('layout_analyze', message)
+    emit_message_to_OMRMS('layoutAnalyze', message)
     #response = {"id": message["id"], "message": 'Catched message friend, all working correctly'}
     #emit('py_responsePartitureEval', response, json=True)
 @socketServer.on('response_to_cli')

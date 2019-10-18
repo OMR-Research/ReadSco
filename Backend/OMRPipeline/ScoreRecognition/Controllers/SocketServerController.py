@@ -26,19 +26,22 @@ def sendSalutation(message):
 def handleDisconnection():
     print('[SUCCESS] - Microservice disconnected of this socket')
 
-@socketServer.on('scoreTranslation')                                # The event to start our partiture evaluation system is 'js_partitutreEval'
+@socketServer.on('scoreRecognition')                                # The event to start our score evaluation system is 'js_partitutreEval'
 def sendResultToJS(message):
 
     imageToCrop = message["image"]
     boundings = message["boundings"]
 
     imageToCrop = np.array(imageToCrop)
+    
+    results = []  
 
-    crop = imageToCrop[boundings[0][0]:boundings[0][1],]
-
-    prediction = predictor.make_prediction(crop)
+    for bounding in boundings:
+        crop = imageToCrop[bounding[0]:bounding[1],]
+        prediction = predictor.make_prediction(crop)
+        results.append(prediction)
     #SendEncodingRequest(message["id"], prediction)
-    response = {"id": message["id"], "message": prediction}
+    response = {"id": message["id"], "message": results}
     send_result_to_JSServer(response)
 
 def initSocketServer():
