@@ -23,7 +23,7 @@ class BasicHTTPController
     constructor()
     {
         this.InitRouting();
-        this.m_socket = new PythonSocket('http://localhost:5000');
+        this.m_socket = new PythonSocket('http://eventmanager:5000');
     }
 
     private InitRouting()

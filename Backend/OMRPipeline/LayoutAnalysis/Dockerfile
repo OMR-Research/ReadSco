@@ -13,6 +13,6 @@ RUN pip install tensorflow==1.13.1
 RUN pip install keras==2.2.4
 RUN pip install imageio
 
-EXPOSE 5006
+EXPOSE 5005
 
 CMD [ "python", "./main.py" ]

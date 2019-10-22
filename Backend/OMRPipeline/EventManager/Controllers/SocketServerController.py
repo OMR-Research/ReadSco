@@ -32,5 +32,5 @@ def responseToClient(message):
     emit('py_responseScoreEval', response, broadcast=True, json=True)
 
 def initSocketServer():
-    socketServer.run(app, host='127.0.0.1', port=5000) #Everything gets blocked from here
+    socketServer.run(app, host='0.0.0.0', port=5000) #Everything gets blocked from here
 

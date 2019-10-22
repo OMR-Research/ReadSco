@@ -8,8 +8,6 @@ import io
 import os
 import time
 
-import matplotlib.pyplot as plt
-
 class Predictor:
 
     model = "OMR/Config/agnostic_model_homophonic"
@@ -104,56 +102,56 @@ class Predictor:
             result += self.int2word[w] + " "
         return result
     
-    def benchmark_beamdecoder(self, imageToPredict):
-        #We decode the base64 string we have sent through the socket
-        image = self.__decodebase64Img(imageToPredict)
-        #We resize the image to the height TensorFlow is using
-        image = self.__resize(image, self.HEIGHT)
-        #We normalize the image
-        image = self.__normalize(image)
-        image = np.asarray(image).reshape(1, image.shape[0], image.shape[1], 1)
-        seq_lengths = [image.shape[2] / self.WIDTH_REDUCTION]
-
-        top_paths = []
-        benchmark_results = []
-        beam_w = 100
-
-        print('Performing benchmarks\n')
-        for i in range(1, 11):
-            top_p = i * 10 
-            if top_p > beam_w:
-                beam_w += 100
-            top_paths.append(top_p)
-            prediction_tensor, _ = tf.nn.ctc_beam_search_decoder(
-                self.logits,
-                self.seq_len,
-                beam_width= beam_w,
-                top_paths= top_p,
-                merge_repeated= True
-            )
-
-            start = time.time()
-            _ = self.session.run(prediction_tensor, 
-                                feed_dict={
-                                    self.input: image,
-                                    self.seq_len: seq_lengths,
-                                    self.rnn_keep_prob: 1.0,
-                            })
-            end = time.time()
-            benchmark = end - start
-            benchmark_results.append(benchmark)
-            if benchmark > 35.0:
-                print('Exceeded limit of users patience')
-                break
-        
-        print('Benchmarking finished \n')
-
-        plt.plot(top_paths, benchmark_results)
-        plt.ylabel('Time (s)')
-        plt.xlabel('Top paths')
-        plt.savefig('results.png')
-
-        return ""
+    #def benchmark_beamdecoder(self, imageToPredict):
+    #    #We decode the base64 string we have sent through the socket
+    #    image = self.__decodebase64Img(imageToPredict)
+    #    #We resize the image to the height TensorFlow is using
+    #    image = self.__resize(image, self.HEIGHT)
+    #    #We normalize the image
+    #    image = self.__normalize(image)
+    #    image = np.asarray(image).reshape(1, image.shape[0], image.shape[1], 1)
+    #    seq_lengths = [image.shape[2] / self.WIDTH_REDUCTION]
+#
+    #    top_paths = []
+    #    benchmark_results = []
+    #    beam_w = 100
+#
+    #    print('Performing benchmarks\n')
+    #    for i in range(1, 11):
+    #        top_p = i * 10 
+    #        if top_p > beam_w:
+    #            beam_w += 100
+    #        top_paths.append(top_p)
+    #        prediction_tensor, _ = tf.nn.ctc_beam_search_decoder(
+    #            self.logits,
+    #            self.seq_len,
+    #            beam_width= beam_w,
+    #            top_paths= top_p,
+    #            merge_repeated= True
+    #        )
+#
+    #        start = time.time()
+    #        _ = self.session.run(prediction_tensor, 
+    #                            feed_dict={
+    #                                self.input: image,
+    #                                self.seq_len: seq_lengths,
+    #                                self.rnn_keep_prob: 1.0,
+    #                        })
+    #        end = time.time()
+    #        benchmark = end - start
+    #        benchmark_results.append(benchmark)
+    #        if benchmark > 35.0:
+    #            print('Exceeded limit of users patience')
+    #            break
+    #    
+    #    print('Benchmarking finished \n')
+#
+    #    plt.plot(top_paths, benchmark_results)
+    #    plt.ylabel('Time (s)')
+    #    plt.xlabel('Top paths')
+    #    plt.savefig('results.png')
+#
+    #    return ""
     
     
     def __convert_inputs_to_ctc_format(self, target_text):

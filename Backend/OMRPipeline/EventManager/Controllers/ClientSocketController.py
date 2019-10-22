@@ -5,7 +5,7 @@ def on_salutation(message):
     print(message)
 
 def emit_message_to_OMRMS(status, message):
-    clientSocket = SocketIO('127.0.0.1', 5005, LoggingNamespace)
+    clientSocket = SocketIO('layoutanalysis', 5005, LoggingNamespace)
     clientSocket.emit(status, message)
     clientSocket.disconnect()
 
