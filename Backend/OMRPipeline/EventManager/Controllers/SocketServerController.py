@@ -7,9 +7,15 @@ app.config['SECRET_KEY'] = 'secret!'                            #|
 
 socketServer = SocketIO(app, async_mode="threading")
 
+print('Started!')
+
 @socketServer.on('connect')
 def handleConnection():
     print('[SUCCESS] - Microservice connected to this socket')  #  We print a success entry to verify the connection TODO: create a log system
+
+@socketServer.on('error')
+def seterror():
+    print('[ERROR]')
 
 @socketServer.on('cli_ping')
 def sendSalutation(message):

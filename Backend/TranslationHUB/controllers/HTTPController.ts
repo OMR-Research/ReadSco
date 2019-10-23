@@ -23,7 +23,7 @@ class BasicHTTPController
     constructor()
     {
         this.InitRouting();
-        this.m_socket = new PythonSocket('http://eventmanager:5000');
+        this.m_socket = new PythonSocket('ws://eventmanager:5000');
     }
 
     private InitRouting()
@@ -34,11 +34,15 @@ class BasicHTTPController
 
     ping = (req : express.Request, res: express.Response)=>
     {
+        console.log('Received ping request');
+        console.log('Sending ping request');
+        this.m_socket.Emit('cli_ping', 'ping', null)
         res.send('Pong');
     }
 
     evalScore = (req: express.Request, res: express.Response)=>
     {
+        console.log('Received eval notification');
         let image = req.body.image;
         this.m_socket.Emit('js_scoreEval', image, res);
     }

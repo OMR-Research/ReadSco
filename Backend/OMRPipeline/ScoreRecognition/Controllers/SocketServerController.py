@@ -45,4 +45,4 @@ def sendResultToJS(message):
     send_result_to_JSServer(response)
 
 def initSocketServer():
-    socketServer.run(app, host= '127.0.0.1', port=5006)
+    socketServer.run(app, host= '0.0.0.0', port=5006)

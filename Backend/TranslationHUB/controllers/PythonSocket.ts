@@ -22,6 +22,12 @@ class PythonSocket
         this.m_socket.on('error', this.ErrorMessage);
         this.m_socket.on('connect_error', this.ConnectionError);
         this.m_socket.on('py_responseScoreEval', this.ProccessOMRResult);
+        this.m_socket.on('serv_pong', this.saypong);
+    }
+
+    saypong = () =>
+    {
+        console.log('Pong from eventmanager')
     }
 
     ConnectionMessage = ()=>
