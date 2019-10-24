@@ -42,7 +42,7 @@ def sendResultToJS(message):
         results.append(prediction)
     #SendEncodingRequest(message["id"], prediction)
     response = {"id": message["id"], "message": results}
-    send_result_to_JSServer(response)
+    emit('scoreRecognitionEnd', response)
 
 def initSocketServer():
     socketServer.run(app, host= '0.0.0.0', port=5006)

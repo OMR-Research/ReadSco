@@ -1,7 +1,8 @@
 import multer from "multer";
 import express from "express";
 import fs from "fs";
-import PythonSocket from './PythonSocket'
+import EventManager from './EventManager'
+import ConnectionStorage from "../connectionManagement/ConnectionStorage";
 
 class BasicHTTPController
 {
@@ -18,12 +19,12 @@ class BasicHTTPController
 
     private m_router: express.Router = express.Router();
 
-    private m_socket: PythonSocket;
+    private m_eventManager : EventManager;
 
     constructor()
     {
         this.InitRouting();
-        this.m_socket = new PythonSocket('ws://eventmanager:5000');
+        this.m_eventManager = new EventManager(new ConnectionStorage())
     }
 
     private InitRouting()
@@ -34,9 +35,6 @@ class BasicHTTPController
 
     ping = (req : express.Request, res: express.Response)=>
     {
-        console.log('Received ping request');
-        console.log('Sending ping request');
-        this.m_socket.Emit('cli_ping', 'ping', null)
         res.send('Pong');
     }
 
@@ -44,7 +42,7 @@ class BasicHTTPController
     {
         console.log('Received eval notification');
         let image = req.body.image;
-        this.m_socket.Emit('js_scoreEval', image, res);
+        this.m_eventManager.startLayoutAnalysis(image, res);
     }
 
     getRouter()

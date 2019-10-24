@@ -15,3 +15,9 @@ services:
       context: OMRPipeline/eventmanager
     ports:
       - "5000:5000"
+  
+  layoutanalysis:
+    build:
+      context: OMRPipeline/layoutanalysis
+    ports:
+      - "5005:5005"

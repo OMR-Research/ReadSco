@@ -10,11 +10,18 @@ socketServer = SocketIO(app, async_mode="threading")
 
 predictor = LayoutAnalysis()
 
+@socketServer.on('pingla')
+def responseping():
+    print('[SUCCESS] - Got the message pal')
+
 @socketServer.on('layoutAnalyze')
 def predictLayout(message):
+    print('[SUCCESS] - Layout Analysis request received')
     image, boundings = predictor.predict(message["message"])
     response = {"id": message["id"], "image": image.tolist(), "boundings": boundings}
-    send_result(response)
+    print('[SUCCESS] - Layout Analysis finished')
+    #send_result(response)
+    socketServer.emit('layoutAnalysisEnd', response)
 
 @socketServer.on('connect')
 def handleConnection():

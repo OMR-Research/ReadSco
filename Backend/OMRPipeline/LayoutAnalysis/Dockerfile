@@ -15,4 +15,4 @@ RUN pip install imageio
 
 EXPOSE 5005
 
-CMD [ "python", "./main.py" ]
+CMD [ "python3", "-u" , "./main.py" ]
