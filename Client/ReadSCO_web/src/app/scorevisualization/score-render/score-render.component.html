@@ -3,14 +3,23 @@
       <mat-toolbar>
           <div fxFlex fxLayout fxLayoutAlign="center center" fxHide.xs>
               <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-                <li (click)="startPlaying()">
+                <li *ngIf="isScorePlayable" (click)="startPlaying()" #playbutton>
                   <mat-icon>play_arrow</mat-icon>
                 </li>
-                <li>
+                <li *ngIf="!isScorePlayable" class="disabled" (click)="startPlaying()" #playbutton>
+                  <mat-icon>play_arrow</mat-icon>
+                </li>
+                <li *ngIf="isScorePlayable" >
                     <mat-icon>pause</mat-icon>
                 </li>
-                <li>
+                <li *ngIf="!isScorePlayable" class="disabled">
+                  <mat-icon>pause</mat-icon>
+                </li>
+                <li *ngIf="isScorePlayable" >
                     <mat-icon>stop_square</mat-icon>
+                </li>
+                <li *ngIf="!isScorePlayable" class="disabled">
+                  <mat-icon >stop_square</mat-icon>
                 </li>
                 <li class="separator"></li>
                 <li> 

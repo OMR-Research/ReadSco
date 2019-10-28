@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2} from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer2, ViewChild, ElementRef} from '@angular/core';
 import { VerovioService } from '../services/verovio-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MidiPlayerService } from '../services/midi-player.service';
@@ -15,7 +15,6 @@ import { Observable } from 'rxjs';
 })
 
 export class ScoreRenderComponent implements OnInit{
-
   private data = `<?xml version="1.0" encoding="UTF-8"?>
   <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
   <?xml-model href="http://music-encoding.org/schema/4.0.0/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
@@ -415,6 +414,7 @@ export class ScoreRenderComponent implements OnInit{
   scoreToRender: Observable<string>;
   public renderedSVG;
   public isScoreLoaded: boolean;
+  public isScorePlayable: boolean;
 
   constructor(private verovioService : VerovioService, private sanitizer : DomSanitizer, private midiService : MidiPlayerService,
     private renderer: Renderer2, private scoreStore: Store<ScoreVisState>) 
@@ -428,8 +428,8 @@ export class ScoreRenderComponent implements OnInit{
             console.log("Response received")
             this.renderedSVG = this.verovioService.renderScore(this.data)
             this.midiService.loadScore(this.verovioService.getMIDI())
-            this.renderScoreAndStartPlayer()
             this.isScoreLoaded = true
+            setTimeout(()=>{this.renderScoreAndStartPlayer()}, 1.0*3000)
         }
     })
   }
@@ -447,8 +447,9 @@ export class ScoreRenderComponent implements OnInit{
       definitiveList.push(note.children[0]);
       definitiveList.push(note.children[1]);
     })
-
     this.midiService.setList(definitiveList)
+    this.isScorePlayable = true;
+    this.isScoreLoaded = true;
   }
 
   getNotes()
@@ -463,7 +464,8 @@ export class ScoreRenderComponent implements OnInit{
 
   startPlaying()
   {
-    this.midiService.startPlaying()
+    if(this.isScorePlayable)
+        this.midiService.startPlaying()
   }
 
 }

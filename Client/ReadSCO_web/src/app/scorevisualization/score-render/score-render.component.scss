@@ -92,6 +92,15 @@ div
   padding: .1em;
 }
 
+.disabled>mat-icon
+{
+    color: grey;
+}
+    .disabled:hover
+    {
+        background-color: #4dcfc4;
+    }
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
