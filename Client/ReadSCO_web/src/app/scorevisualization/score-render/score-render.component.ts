@@ -2,10 +2,12 @@ import { Component, OnInit, AfterViewInit, Renderer2, ViewChild, ElementRef} fro
 import { VerovioService } from '../services/verovio-service.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MidiPlayerService } from '../services/midi-player.service';
-import { Store, select } from '@ngrx/store';
+import { Store, select, State } from '@ngrx/store';
 import { ScoreVisState } from '../store/scorevisualization.reducer';
 import { selectScoreTranscription } from '../store/scorevisualization.selector';
+import { ScoreAnState } from '../../scoreanalysis/store/scoreanalysis.reducer'
 import { Observable } from 'rxjs';
+import { selectOriginalImage } from 'src/app/scoreanalysis/store/scoreanalysis.selector';
 
 
 @Component({
@@ -415,13 +417,19 @@ export class ScoreRenderComponent implements OnInit{
   public renderedSVG;
   public isScoreLoaded: boolean;
   public isScorePlayable: boolean;
+  public comparingToggled: boolean;
+  public originalImage: string;
 
   constructor(private verovioService : VerovioService, private sanitizer : DomSanitizer, private midiService : MidiPlayerService,
-    private renderer: Renderer2, private scoreStore: Store<ScoreVisState>) 
+    private renderer: Renderer2, private scoreStore: Store<ScoreVisState>, private scoreAnStore: Store<ScoreAnState>) 
   { 
     this.isScoreLoaded = false;
+    this.comparingToggled = false;
     this.midiService.setRender(renderer)
     this.scoreToRender = this.scoreStore.pipe(select(selectScoreTranscription))
+    this.scoreAnStore.pipe(select(selectOriginalImage)).subscribe(data => {
+        this.originalImage = data;
+    })
     this.scoreToRender.subscribe(result => {
         if(result!="")
         {
@@ -466,6 +474,12 @@ export class ScoreRenderComponent implements OnInit{
   {
     if(this.isScorePlayable)
         this.midiService.startPlaying()
+  }
+
+  toggleComparison()
+  {
+      console.log(this.originalImage);
+      this.comparingToggled = !this.comparingToggled;
   }
 
 }

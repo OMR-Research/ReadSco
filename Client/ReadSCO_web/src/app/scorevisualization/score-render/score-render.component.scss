@@ -15,7 +15,7 @@ div
     width: 80%;
 }
 
-#container
+.container
 {
     width: auto;
     overflow: auto;
@@ -28,6 +28,12 @@ div
             -ms-animation: fadein 2s; /* Internet Explorer */
                 -o-animation: fadein 2s; /* Opera < 12.1 */
                     animation: fadein 2s;
+}
+
+.visor>img
+{
+    width: 85%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
 #loading

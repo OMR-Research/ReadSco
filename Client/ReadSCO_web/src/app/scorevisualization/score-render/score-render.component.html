@@ -21,6 +21,9 @@
                 <li *ngIf="!isScorePlayable" class="disabled">
                   <mat-icon >stop_square</mat-icon>
                 </li>
+                <li *ngIf="isScoreLoaded" (click)="toggleComparison()">
+                  <mat-icon>compare</mat-icon>
+                </li>
                 <li class="separator"></li>
                 <li> 
                     <mat-menu #appMenu="matMenu">
@@ -40,7 +43,7 @@
       </mat-toolbar>
   </section>
   <section>
-      <div *ngIf="isScoreLoaded" id="container" [innerHTML]="renderedSVG | safe: 'html'">
+      <div *ngIf="isScoreLoaded" class="container" [innerHTML]="renderedSVG | safe: 'html'">
       </div>
       <div *ngIf="!isScoreLoaded" id="loading">
         <h2>The system is analyzing your score</h2>
@@ -49,9 +52,11 @@
         <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
       </div>
   </section>
+</article>
+<article *ngIf="comparingToggled">
   <section>
-    <div style="height: 30px;">
-      <div id="player" style="z-index: 20; position: absolute; display: none;"></div>
+    <div class="visor">
+      <img [src]="originalImage">
     </div>
   </section>
 </article>

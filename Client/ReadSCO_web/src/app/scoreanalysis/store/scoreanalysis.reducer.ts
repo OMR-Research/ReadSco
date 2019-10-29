@@ -1,13 +1,13 @@
 import * as fromScoreAnalysisActions from './scoreanalysis.actions'
 
-export interface State
+export interface ScoreAnState
 {
     imageLoading: boolean
     imageString: string | ArrayBuffer
     imageCropped: string
 }
 
-const initialState : State = 
+const initialState : ScoreAnState = 
 {
     imageLoading : false,
     imageString : null,

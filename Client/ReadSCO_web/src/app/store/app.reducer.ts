@@ -4,7 +4,7 @@ import * as fromScoreVisualization from '../scorevisualization/store/scorevisual
 
 export interface AppState
 {
-    scoreAnalysis : fromScoreAnalysis.State;
+    scoreAnalysis : fromScoreAnalysis.ScoreAnState;
     scoreVisualization: fromScoreVisualization.ScoreVisState;
 }
 
