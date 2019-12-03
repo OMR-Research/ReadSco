@@ -1,0 +1,52 @@
+- hosts: localhost
+  tasks:
+    - name: Create a network
+      docker_network:
+        name: readsco
+    - name: Remove Discovery
+      docker_container:
+        name: discoveryservice
+        state: absent
+        purge_networks: yes
+    - name: Start Discovery
+      docker_container:
+        name: discoveryservice
+        image: "discoveryservice:latest"
+        ports:
+          - "8010:8010"
+        networks:
+          - name: readsco
+    
+    - pause:
+        seconds: 10
+    
+    - name: Remove Gateway
+      docker_container:
+        name: readsco
+        state: absent
+        purge_networks: yes
+    - name: Start Gateway
+      docker_container:
+        name: readsco
+        image: "gateway:latest"
+        ports:
+          - "8011:8011"
+        networks:
+          - name: readsco
+
+    - pause:
+        seconds: 10
+  
+    - name: Remove Translation Hub
+      docker_container:
+        name: translationhub
+        state: absent
+        purge_networks: yes
+    - name: Start New Translation Hub
+      docker_container:
+        name: translationhub
+        image: "translationhub"
+        ports:
+          - "3000:3000"
+        networks:
+          - name: readsco
