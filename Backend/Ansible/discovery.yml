@@ -18,7 +18,7 @@
           - name: readsco
     
     - pause:
-        seconds: 10
+        seconds: 5
     
     - name: Remove Gateway
       docker_container:
@@ -33,9 +33,6 @@
           - "8011:8011"
         networks:
           - name: readsco
-
-    - pause:
-        seconds: 10
   
     - name: Remove Translation Hub
       docker_container:

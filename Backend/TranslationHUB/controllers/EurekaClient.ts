@@ -11,7 +11,7 @@ class EurekaClient
         this.client = new Eureka({
             instance: {
                 app: 'translationhub',
-                hostName: 'translationhub',
+                hostName: 'entrypoint',
                 ipAddr: ip.address(),
                 status: 'UP',
                 port: {
