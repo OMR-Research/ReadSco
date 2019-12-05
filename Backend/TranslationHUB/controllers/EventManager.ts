@@ -22,7 +22,7 @@ class EventManager
             image: message
         }
 
-        axios.default.post("http://layoutanalysis:5005/layoutAnalyze", data).then((res)=>{})
+        axios.default.post("http://readsco:8011/layoutanalysis/layoutAnalyze", data).then((res)=>{console.log(res)})
     }
 
     private GenerateToken()
