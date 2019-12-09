@@ -49,6 +49,7 @@ class BasicHTTPController
     {
         console.log("Finished score eval");
         this.m_eventManager.sendResponse(req.body)
+        res.send("ACK")
     }
 
     getRouter()

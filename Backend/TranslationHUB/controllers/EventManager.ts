@@ -22,7 +22,7 @@ class EventManager
             image: message
         }
 
-        axios.default.post("http://readsco:8011/layoutanalysis/layoutAnalyze", data).then((res)=>{console.log(res)})
+        axios.default.post("http://readsco:8011/layoutanalysis/layoutAnalyze", data).then((res)=>{})
     }
 
     private GenerateToken()
@@ -30,6 +30,7 @@ class EventManager
         let randomString = Math.random().toString(36).substring(7);
         let dateNow = new Date().toString();
         return jwt.sign({_id: randomString, dateNow}, 'abc123');
+        
     }
 
     sendResponse(message: any)

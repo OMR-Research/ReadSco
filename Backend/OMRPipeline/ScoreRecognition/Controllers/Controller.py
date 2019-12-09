@@ -6,15 +6,15 @@ import cv2
 from imageio import imread
 import io
 import base64
+from .Eureka import register_eurekaservice
 
 
 app = Flask(__name__)                                           #|
 
 predictor = Predictor()
 
-@app.route('/scoreRecognition', methods=['POST'])                                # The event to start our score evaluation system is 'js_partitutreEval'
+@app.route('/getSymbols', methods=['POST'])                                # The event to start our score evaluation system is 'js_partitutreEval'
 def sendResultToJS():
-    print(request.data)
     message = request.json
     imageToCrop = decodebase64Img(message["image"])
     imageToCrop = cv2.cvtColor(imageToCrop, cv2.COLOR_BGR2GRAY)
@@ -30,10 +30,11 @@ def sendResultToJS():
         results.append(prediction)
     
     response = {"id": message["id"], "message": results}
-    requests.post('http://translationhub:3000/scoreResult', response)
+    requests.post('http://readsco:8011/translationhub/scoreResult', response)
     return "ACK", 200
 
 def initSocketServer():
+    register_eurekaservice()
     app.run(host='0.0.0.0', port=5006)
 
 def decodebase64Img(imageToDecode):

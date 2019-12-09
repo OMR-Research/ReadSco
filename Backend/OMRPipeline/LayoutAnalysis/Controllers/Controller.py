@@ -15,7 +15,7 @@ def predictLayout():
     image, boundings = predictor.predict(message["image"])
     response = {"id": message["id"], "image": message["image"], "boundings": boundings}
     print('[SUCCESS] - Layout Analysis finished')
-    requests.post('http://readsco:8011/translationhub/scoreResult', json=response)
+    requests.post('http://readsco:8011/scorerecognition/getSymbols', json=response)
     return "ACK", 200
 
 @app.route('/ping', methods=['GET'])

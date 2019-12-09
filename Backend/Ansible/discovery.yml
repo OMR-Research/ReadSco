@@ -48,11 +48,26 @@
         networks:
           - name: readsco
     
+    - name: Remove Score Recognition
+      docker_container:
+        name: scorerecognition
+        state: absent
+        purge_networks: yes
+    - name: Start New Score Recognition
+      docker_container:
+        name: scorerecognition
+        image: "readsco/scorerecognition:1.01"
+        ports:
+          - "5006:5006"
+        networks:
+          - name: readsco
+    
     - name: Remove Gateway
       docker_container:
         name: readsco
         state: absent
         purge_networks: yes
+
     - name: Start Gateway
       docker_container:
         name: readsco
