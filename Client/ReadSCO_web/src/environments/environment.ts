@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: "http://localhost:8081/translationhub/"
+  apiEndpoint: "http://localhost:8011/translationhub"
 };
 
 /*
