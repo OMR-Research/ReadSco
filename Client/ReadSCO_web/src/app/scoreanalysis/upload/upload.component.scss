@@ -1,0 +1,40 @@
+*
+{
+	box-sizing: border-box;
+}
+
+article {
+    align-content: center;
+    text-align: center;
+}
+
+.header
+{
+    margin-top: 5em;
+}
+
+.uploadZone
+{
+    width: 100%;
+    margin-top: 3em;
+    text-align: center;
+}
+
+    .uploadZone>div{
+        width: 70%;
+        height: 400px;
+        border: 3px dashed #103339;
+        margin: 0;
+        display: inline-block;
+    }
+
+    .uploadZone>div:hover
+    {
+        border: 3px dashed #7DE2DB;
+        cursor: pointer;
+    }
+
+        .uploadZone>div>ion-button
+        {
+            margin-top: 9em;
+        }

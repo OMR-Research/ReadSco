@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
+  { path: '', redirectTo: 'scoreanalysis', pathMatch: 'full' },
+  { path: 'scoreanalysis', loadChildren: './scoreanalysis/scoreanalysis.module#ScoreanalysisPageModule' },
+  { path: 'scoreanalysis/crop', loadChildren: './scoreanalysis/scoreanalysis.module#ScoreanalysisPageModule' },
+  { path: 'scoreanalysis/confirm', loadChildren: './scoreanalysis/scoreanalysis.module#ScoreanalysisPageModule' },
+  { path: 'scorevisualization', loadChildren: './scorevisualization/scorevisualization.module#ScorevisualizationPageModule' },
 ];
 
 @NgModule({
