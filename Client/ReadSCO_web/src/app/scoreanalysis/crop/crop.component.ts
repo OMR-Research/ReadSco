@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer';
 import * as fromScoreActions from '../store/scoreanalysis.actions';
 import { Subscription } from 'rxjs';
-import { ComponentLoading } from '../services/componentloading.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crop',
@@ -19,7 +19,7 @@ export class CropComponent implements OnInit, OnDestroy {
   private croppedImage : string;
   
 
-  constructor(private componentService : ComponentLoading, private scoreStore : Store<fromApp.AppState>) 
+  constructor(private scoreStore : Store<fromApp.AppState>, private router: Router) 
   {
   }
 
@@ -57,7 +57,7 @@ export class CropComponent implements OnInit, OnDestroy {
 
   public GoBack()
   {
-    this.componentService.ChangeComponent(0);
+    this.router.navigate(['./scoreanalysis'])
   }
   public ToFinalScreen()
   {
@@ -66,8 +66,7 @@ export class CropComponent implements OnInit, OnDestroy {
     //TODO - Make a dispatch
     //this.scoreanalysisService.SetCroppedImage(this.croppedImage);
     this.scoreStore.dispatch(new fromScoreActions.CropImage(this.croppedImage));
-    
-    this.componentService.ChangeComponent(2);
+    this.router.navigate(['./scoreanalysis/confirm'])
   }
 
 }

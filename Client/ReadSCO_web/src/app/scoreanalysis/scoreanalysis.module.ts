@@ -15,13 +15,11 @@ import { ComponentLoadingDirective } from './directives/component-loading.direct
 import { CropComponent } from './crop/crop.component';
 import { SendComponent } from './send/send.component';
 import { MenuModule } from '../menu/menu.module';
-import { ComponentLoading } from './services/componentloading.service';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ScoreanalysisPage
-  }
+  { path: '', component: UploadComponent  },
+  { path: 'crop', component: CropComponent },
+  { path: 'confirm', component: SendComponent}
 ];
 
 @NgModule({
@@ -37,6 +35,6 @@ const routes: Routes = [
   ],
   declarations: [ScoreanalysisPage, UploadComponent, CropComponent, SendComponent, ComponentLoadingDirective],
   entryComponents: [UploadComponent, CropComponent, SendComponent],
-  providers: [ComponentLoading]
+  providers: []
 })
 export class ScoreanalysisPageModule {}

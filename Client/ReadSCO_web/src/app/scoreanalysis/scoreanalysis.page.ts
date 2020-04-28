@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { ComponentLoadingDirective } from './directives/component-loading.directive';
 import { UploadComponent } from './upload/upload.component';
-import { ComponentLoading } from './services/componentloading.service';
 import { CropComponent } from './crop/crop.component';
 import { SendComponent } from './send/send.component';
 
@@ -15,13 +14,11 @@ export class ScoreanalysisPage implements OnInit, OnDestroy {
   private components : any[] = [UploadComponent, CropComponent, SendComponent]
   @ViewChild(ComponentLoadingDirective, {static: true}) componentHost : ComponentLoadingDirective;
 
-  constructor(private componentFactory: ComponentFactoryResolver, private componentLoadingService : ComponentLoading) 
+  constructor(private componentFactory: ComponentFactoryResolver) 
   { }
 
   ngOnInit() 
   {
-    this.LoadComponent(0);
-    this.componentLoadingService.SetHook(this);
   }
 
   LoadComponent(index)

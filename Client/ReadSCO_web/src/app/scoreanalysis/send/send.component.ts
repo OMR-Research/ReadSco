@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ComponentLoading } from '../services/componentloading.service';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer'
 import { Subscription } from 'rxjs';
@@ -17,7 +16,7 @@ export class SendComponent implements OnInit {
   public sendImage : string;
   public displayedImage : string;
 
-  constructor(private componentService: ComponentLoading, private scoreStore : Store<fromApp.AppState>, private router: Router) 
+  constructor(private scoreStore : Store<fromApp.AppState>, private router: Router) 
   { 
     this.storeSubscription = this.scoreStore.select('scoreAnalysis').subscribe(cropState => {
       if(cropState.imageCropped != null)
@@ -33,13 +32,13 @@ export class SendComponent implements OnInit {
 
   GoBack() 
   {
-    this.componentService.ChangeComponent(1);
+    this.router.navigate(['./scoreanalysis/crop'])
+
   }
 
   SendImage()
   {
     this.scoreStore.dispatch(new StartScoreAnalysis(this.sendImage))
-    this.componentService.ChangeComponent(0)
     this.router.navigate(['./scorevisualization'])
   }
 

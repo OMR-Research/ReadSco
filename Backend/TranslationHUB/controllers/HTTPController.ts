@@ -1,6 +1,5 @@
 import multer from "multer";
 import express from "express";
-import fs from "fs";
 import EventManager from './EventManager'
 import ConnectionStorage from "../connectionManagement/ConnectionStorage";
 
@@ -31,6 +30,7 @@ class BasicHTTPController
     {
         this.m_router.get('/ping', this.ping);
         this.m_router.post('/evalScore', this.upload.single("image"), this.evalScore);
+        this.m_router.post('/scoreResult', this.scoreResult)
     }
 
     ping = (req : express.Request, res: express.Response)=>
@@ -43,6 +43,13 @@ class BasicHTTPController
         console.log('Received eval notification');
         let image = req.body.image;
         this.m_eventManager.startLayoutAnalysis(image, res);
+    }
+
+    scoreResult = (req: express.Request, res: express.Response)=>
+    {
+        console.log("Finished score eval");
+        this.m_eventManager.sendResponse(req.body)
+        res.send("ACK")
     }
 
     getRouter()

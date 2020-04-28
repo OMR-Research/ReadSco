@@ -19,13 +19,14 @@ import { EffectsModule } from '@ngrx/effects';
 import {ScoreAnalysisEffects} from './scoreanalysis/store/scoreanalysis.effects'
 import { ScoreVisualizationEffects } from './scorevisualization/store/scorevisualization.effects';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MenuModule } from './menu/menu.module';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule, 
-    IonicModule.forRoot(), 
+    IonicModule.forRoot({animated:false}), 
     AppRoutingModule, 
     BrowserAnimationsModule, 
     MaterialModule, 

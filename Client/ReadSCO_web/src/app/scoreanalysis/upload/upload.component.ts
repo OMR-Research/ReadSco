@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { ComponentLoading } from '../services/componentloading.service';
 import * as fromApp from '../../store/app.reducer';
 import * as fromScoreActions from '../store/scoreanalysis.actions';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-upload',
@@ -11,7 +11,7 @@ import { Store } from '@ngrx/store';
 })
 export class UploadComponent implements OnInit {
 
-  constructor(private componentLoadingService : ComponentLoading, private scoreStore : Store<fromApp.AppState>) 
+  constructor(private scoreStore : Store<fromApp.AppState>, private router: Router) 
   { }
 
   ngOnInit() {}
@@ -24,14 +24,13 @@ export class UploadComponent implements OnInit {
   {
     event.preventDefault();
     this.scoreStore.dispatch(new fromScoreActions.ImageLoadStart(event.dataTransfer.files[0]));
-    this.componentLoadingService.ChangeComponent(1);
   }
 
   uploadFile(event)
   {
     event.preventDefault();
     this.scoreStore.dispatch(new fromScoreActions.ImageLoadStart(event.target.files[0]));
-    this.componentLoadingService.ChangeComponent(1);
+    this.router.navigate(['./scoreanalysis/crop'])
   }
 
   ClickFileUpload()

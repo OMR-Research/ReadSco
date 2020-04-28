@@ -1,3 +1,3 @@
-from Controllers.SocketServerController import initServer
+from Controllers.Controller import initServer
 
 initServer()

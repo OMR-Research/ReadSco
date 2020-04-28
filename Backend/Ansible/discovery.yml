@@ -1,0 +1,78 @@
+- hosts: localhost
+  tasks:
+    - name: Create a network
+      docker_network:
+        name: readsco
+    - name: Remove Discovery
+      docker_container:
+        name: discoveryservice
+        state: absent
+        purge_networks: yes
+    - name: Start Discovery
+      docker_container:
+        name: discoveryservice
+        image: "readsco/discoveryservice:1.0"
+        ports:
+          - "8010:8010"
+        networks:
+          - name: readsco
+    
+    - pause:
+        seconds: 20
+      
+    - name: Remove Translation Hub
+      docker_container:
+        name: translationhub
+        state: absent
+        purge_networks: yes
+    - name: Start New Translation Hub
+      docker_container:
+        name: entrypoint
+        image: "readsco/translationhub:1.01"
+        ports:
+          - "3000:3000"
+        networks:
+          - name: readsco
+    
+    - name: Remove Layout Analysis
+      docker_container:
+        name: layoutanalysis
+        state: absent
+        purge_networks: yes
+    - name: Start New Layout Analysis
+      docker_container:
+        name: layoutanalysis
+        image: "readsco/layoutanalysis:1.01"
+        ports:
+          - "5005:5005"
+        networks:
+          - name: readsco
+    
+    - name: Remove Score Recognition
+      docker_container:
+        name: scorerecognition
+        state: absent
+        purge_networks: yes
+    - name: Start New Score Recognition
+      docker_container:
+        name: scorerecognition
+        image: "readsco/scorerecognition:1.01"
+        ports:
+          - "5006:5006"
+        networks:
+          - name: readsco
+    
+    - name: Remove Gateway
+      docker_container:
+        name: readsco
+        state: absent
+        purge_networks: yes
+
+    - name: Start Gateway
+      docker_container:
+        name: readsco
+        image: "readsco/gateway:1.0"
+        ports:
+          - "8011:8011"
+        networks:
+          - name: readsco

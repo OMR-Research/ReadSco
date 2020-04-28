@@ -1,11 +1,13 @@
 import express from "express"
 import * as bodyparser from "body-parser"
 import BasicHTTPController from './controllers/HTTPController'
+import EurekaClient from './controllers/EurekaClient'
 
 class API 
 {
     public p_api = express.application;
     private m_port: number;
+    private eurekaClient: EurekaClient
 
     constructor(controllers: any, port: number)
     {
@@ -13,6 +15,8 @@ class API
         this.m_port = port;
         this.InitMiddleWare();
         this.InitControllers(controllers);
+        this.eurekaClient = new EurekaClient();
+        this.eurekaClient.register_eureka();
     }
 
     private InitMiddleWare()
