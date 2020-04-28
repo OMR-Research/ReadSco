@@ -1,0 +1,17 @@
+<section>
+  <br>
+    <article>
+        <h1>1. Upload a score image</h1>
+    </article>
+    <article class="uploadZone">
+      <div (dragover)="dragToUploadZone($event)" (drop)="dropInZone($event)">
+        <ion-button (click)="ClickFileUpload()">
+          UPLOAD YOUR SCORE IMAGE
+        </ion-button>
+        <ion-text color="dark">
+          <p>Or drag & drop your image into this area</p>
+        </ion-text>
+      </div>
+      <input type="file" hidden id="fileUpload" (change)="uploadFile($event)">
+    </article>
+</section>

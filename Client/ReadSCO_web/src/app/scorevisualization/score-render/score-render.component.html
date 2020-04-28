@@ -1,0 +1,62 @@
+<article>
+  <section>
+      <mat-toolbar>
+          <div fxFlex fxLayout fxLayoutAlign="center center" fxHide.xs>
+              <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+                <li *ngIf="isScorePlayable" (click)="startPlaying()" #playbutton>
+                  <mat-icon>play_arrow</mat-icon>
+                </li>
+                <li *ngIf="!isScorePlayable" class="disabled" (click)="startPlaying()" #playbutton>
+                  <mat-icon>play_arrow</mat-icon>
+                </li>
+                <li *ngIf="isScorePlayable" >
+                    <mat-icon>pause</mat-icon>
+                </li>
+                <li *ngIf="!isScorePlayable" class="disabled">
+                  <mat-icon>pause</mat-icon>
+                </li>
+                <li *ngIf="isScorePlayable" >
+                    <mat-icon>stop_square</mat-icon>
+                </li>
+                <li *ngIf="!isScorePlayable" class="disabled">
+                  <mat-icon >stop_square</mat-icon>
+                </li>
+                <li *ngIf="isScoreLoaded" (click)="toggleComparison()">
+                  <mat-icon>compare</mat-icon>
+                </li>
+                <li class="separator"></li>
+                <li> 
+                    <mat-menu #appMenu="matMenu">
+                      <button mat-menu-item>MEI</button>
+                      <button mat-menu-item>MIDI</button>
+                      <button mat-menu-item>**Kern</button>
+                    </mat-menu>
+                    <a [matMenuTriggerFor]="appMenu">
+                      Download as...
+                    </a>
+                </li>
+                <li>
+                  <a routerLink="/training">Save Score</a>
+                </li>
+              </ul>
+            </div>
+      </mat-toolbar>
+  </section>
+  <section>
+      <div *ngIf="isScoreLoaded" class="container" [innerHTML]="renderedSVG | safe: 'html'">
+      </div>
+      <div *ngIf="!isScoreLoaded" id="loading">
+        <h2>The system is analyzing your score</h2>
+        <h3>Please wait...</h3>
+        <br>
+        <mat-progress-bar mode="query" color="warn"></mat-progress-bar>
+      </div>
+  </section>
+</article>
+<article *ngIf="comparingToggled">
+  <section>
+    <div class="visor">
+      <img [src]="originalImage">
+    </div>
+  </section>
+</article>

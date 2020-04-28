@@ -17,9 +17,16 @@ class API
 
     private InitMiddleWare()
     {
-        this.p_api.use(bodyparser.json());
+        this.p_api.use(bodyparser.json({limit: '50mb'}));
         this.p_api.use(bodyparser.urlencoded({extended: true}));
-        console.log("Middleware stablished");
+        this.p_api.use((req, res, next) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+            res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+            next();})
+        
+            console.log("Middleware stablished");
     }
 
     private InitControllers(c_controllers: any)

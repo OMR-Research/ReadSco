@@ -1,7 +1,8 @@
 import multer from "multer";
 import express from "express";
 import fs from "fs";
-import PythonSocket from './PythonSocket'
+import EventManager from './EventManager'
+import ConnectionStorage from "../connectionManagement/ConnectionStorage";
 
 class BasicHTTPController
 {
@@ -18,12 +19,12 @@ class BasicHTTPController
 
     private m_router: express.Router = express.Router();
 
-    private m_socket: PythonSocket;
+    private m_eventManager : EventManager;
 
     constructor()
     {
         this.InitRouting();
-        this.m_socket = new PythonSocket('http://localhost:5000');
+        this.m_eventManager = new EventManager(new ConnectionStorage())
     }
 
     private InitRouting()
@@ -39,9 +40,9 @@ class BasicHTTPController
 
     evalScore = (req: express.Request, res: express.Response)=>
     {
-        let image = fs.readFileSync(req.file.path);
-        let encoded_image = image.toString('base64');
-        this.m_socket.Emit('js_scoreEval', encoded_image, res);
+        console.log('Received eval notification');
+        let image = req.body.image;
+        this.m_eventManager.startLayoutAnalysis(image, res);
     }
 
     getRouter()
