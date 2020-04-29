@@ -17,6 +17,7 @@ class API
         this.InitControllers(controllers);
         this.eurekaClient = new EurekaClient();
         this.eurekaClient.register_eureka();
+        //setTimeout(this.eurekaClient.get_services, 15000);
     }
 
     private InitMiddleWare()

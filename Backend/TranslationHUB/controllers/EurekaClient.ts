@@ -1,5 +1,4 @@
 
-
 class EurekaClient
 {
     private client: any;

@@ -1,7 +1,8 @@
 import multer from "multer";
 import express from "express";
 import EventManager from './EventManager'
-import ConnectionStorage from "../connectionManagement/ConnectionStorage";
+import ConnectionStorage from "../managers/ConnectionStorage";
+import ServiceStorage from "../managers/ServicesStorage";
 
 class BasicHTTPController
 {
@@ -23,14 +24,15 @@ class BasicHTTPController
     constructor()
     {
         this.InitRouting();
-        this.m_eventManager = new EventManager(new ConnectionStorage())
+        this.m_eventManager = new EventManager(new ConnectionStorage(), new ServiceStorage())
     }
 
     private InitRouting()
     {
         this.m_router.get('/ping', this.ping);
         this.m_router.post('/evalScore', this.upload.single("image"), this.evalScore);
-        this.m_router.post('/scoreResult', this.scoreResult)
+        this.m_router.post('/scoreResult', this.scoreResult);
+        this.m_router.post('/registerPipeline', this.registerPipeline)
     }
 
     ping = (req : express.Request, res: express.Response)=>
@@ -50,6 +52,21 @@ class BasicHTTPController
         console.log("Finished score eval");
         this.m_eventManager.sendResponse(req.body)
         res.send("ACK")
+    }
+
+    registerPipeline = (req: express.Request, res: express.Response)=>
+    {
+        console.log("Registering a new pipeline into ReadSco");
+        try
+        {
+            console.log(req);
+            this.m_eventManager.registerNewPipeline(req.body);
+            res.status(200).send("Working pipeline has been registered correctly")
+        }
+        catch(error)
+        {
+            res.status(404).send({response: error.to});
+        }
     }
 
     getRouter()
