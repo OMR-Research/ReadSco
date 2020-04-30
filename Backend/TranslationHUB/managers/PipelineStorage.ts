@@ -21,7 +21,7 @@ class PipelineStorage
         //If we are at this point, the exception has not been thrown:)
         const parsedString = YAML.stringify({instructions: pipelineFlow});
 
-        fs.writeFileSync("../pipelines/" + pipelineName + ".yml", parsedString);
+        fs.writeFileSync("data_pipelines/" + pipelineName + ".yml", parsedString);
     }
 
     GetPipelineInstructions(pipelineName:string)

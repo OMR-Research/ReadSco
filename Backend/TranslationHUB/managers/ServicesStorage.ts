@@ -10,10 +10,11 @@ class ServiceStorage
 
     CheckIfServiceExists(desiredService:string)
     {
-        this.registeredServices.forEach(element => {
-            if (element == desiredService)
+        for(let i = 0; i < this.registeredServices.length; i++)
+        {
+            if(this.registeredServices[i] == desiredService)
                 return true;
-        });
+        }
 
         return false;
     }

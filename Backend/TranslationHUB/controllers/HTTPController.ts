@@ -59,13 +59,15 @@ class BasicHTTPController
         console.log("Registering a new pipeline into ReadSco");
         try
         {
-            console.log(req);
+            console.log(req.body);
             this.m_eventManager.registerNewPipeline(req.body);
             res.status(200).send("Working pipeline has been registered correctly")
         }
         catch(error)
         {
-            res.status(404).send({response: error.to});
+            console.log("Error")
+            console.log(error);
+            res.status(404).send({response: "There was an error registering the service"});
         }
     }
 
