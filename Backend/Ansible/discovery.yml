@@ -62,6 +62,23 @@
         networks:
           - name: readsco
     
+    - name: Remove Encoder
+      docker_container:
+        name: encoder
+        state: absent
+        purge_networks: yes
+    - name: Start New Encoder
+      docker_container:
+        name: encoder
+        image: "readsco/encoder:1.0"
+        ports:
+          - "5007:5007"
+        networks:
+          - name: readsco
+    
+    - pause:
+        seconds: 20
+    
     - name: Remove Gateway
       docker_container:
         name: readsco
