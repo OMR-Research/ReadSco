@@ -30,9 +30,12 @@ class BasicHTTPController
     private InitRouting()
     {
         this.m_router.get('/ping', this.ping);
+        this.m_router.get('/pipelines', this.getPipelines)
+        this.m_router.get('/services', this.getServices)
         this.m_router.post('/evalScore', this.upload.single("image"), this.evalScore);
         this.m_router.post('/scoreResult', this.scoreResult);
-        this.m_router.post('/registerPipeline', this.registerPipeline)
+        this.m_router.post('/registerPipeline', this.registerPipeline);
+        
     }
 
     ping = (req : express.Request, res: express.Response)=>
@@ -44,6 +47,8 @@ class BasicHTTPController
     {
         console.log('Received eval notification');
         let image = req.body.image;
+        const pipeline = req.body.pipelines;
+        
         this.m_eventManager.startLayoutAnalysis(image, res);
     }
 
@@ -69,6 +74,18 @@ class BasicHTTPController
             console.log(error);
             res.status(404).send({response: "There was an error registering the service"});
         }
+    }
+
+    getPipelines = (req: express.Request, res: express.Response) =>
+    {
+        console.log('Getting pipelines');
+        res.status(200).send({pipelines: this.m_eventManager.getOMRPipelines()});
+    }
+
+    getServices = (req: express.Request, res: express.Response) =>
+    {
+        console.log('Getting services available');
+        res.status(200).send({services: this.m_eventManager.getReadScoServices()});
     }
 
     getRouter()

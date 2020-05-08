@@ -69,6 +69,16 @@ class EventManager
         this.pipelineStorage.RegisterPipeline(data.name, data.workflow, this.serviceStorage);
     }
 
+    getOMRPipelines()
+    {
+        return this.pipelineStorage.GetAllPipelineNames();
+    }
+
+    getReadScoServices()
+    {
+        return this.serviceStorage.GetServices();
+    }
+
 }
 
 export default EventManager

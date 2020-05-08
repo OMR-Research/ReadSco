@@ -26,12 +26,18 @@ class PipelineStorage
 
     GetPipelineInstructions(pipelineName:string)
     {
-        
+        let instructions = fs.readFileSync("data_pipelines/"+ pipelineName + ".yml")
+        const instructionsParsed = YAML.parse(instructions);
     }
 
     GetAllPipelineNames()
     {
+        const fileNames: string[] = [];
+        fs.readdirSync("data_pipelines/").forEach(file => {
+            fileNames.push(file);
+        });
 
+        return fileNames;
     }
 }
 

@@ -19,20 +19,6 @@
     
     - pause:
         seconds: 20
-      
-    - name: Remove Translation Hub
-      docker_container:
-        name: translationhub
-        state: absent
-        purge_networks: yes
-    - name: Start New Translation Hub
-      docker_container:
-        name: entrypoint
-        image: "readsco/translationhub:1.01"
-        ports:
-          - "3000:3000"
-        networks:
-          - name: readsco
     
     - name: Remove Layout Analysis
       docker_container:
@@ -76,8 +62,19 @@
         networks:
           - name: readsco
     
-    - pause:
-        seconds: 20
+    - name: Remove Translation Hub
+      docker_container:
+        name: translationhub
+        state: absent
+        purge_networks: yes
+    - name: Start New Translation Hub
+      docker_container:
+        name: entrypoint
+        image: "readsco/translationhub:1.01"
+        ports:
+          - "3000:3000"
+        networks:
+          - name: readsco
     
     - name: Remove Gateway
       docker_container:
