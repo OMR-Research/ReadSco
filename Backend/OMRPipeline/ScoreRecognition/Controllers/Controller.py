@@ -13,7 +13,7 @@ app = Flask(__name__)                                           #|
 
 predictor = Predictor()
 
-@app.route('/getSymbols', methods=['POST'])                                # The event to start our score evaluation system is 'js_partitutreEval'
+@app.route('/in', methods=['POST'])                                # The event to start our score evaluation system is 'js_partitutreEval'
 def sendResultToJS():
     message = request.json
     imageToCrop = decodebase64Img(message["image"])
@@ -29,8 +29,17 @@ def sendResultToJS():
         prediction = predictor.make_prediction(crop)
         results.append(prediction)
     
-    response = {"id": message["id"], "message": results}
-    requests.post('http://readsco:8011/translationhub/scoreResult', response)
+    nextLocation = message["pipeline"][0]
+    print(nextLocation)
+    arrayToSend = message["pipeline"]
+    arrayToSend.remove(nextLocation)
+
+    response = {"id": message["id"], "message": results, "pipeline":arrayToSend}
+    if nextLocation == '<end>':
+        requests.post('http://readsco:8011/translationhub/scoreResult', response)
+    else:
+        requests.post('http://readsco:8011/' + nextLocation +'/in', json=response)
+
     return "ACK", 200
 
 def initSocketServer():
