@@ -17,7 +17,7 @@ class PipelineStorage
             if(!storageService.CheckIfServiceExists(element))
                 throw new Error('One of the requested services to include into the pipeline does not exist or it is not registered')
         })
-
+        pipelineFlow.push('<end>');
         //If we are at this point, the exception has not been thrown:)
         const parsedString = YAML.stringify({instructions: pipelineFlow});
 
@@ -26,8 +26,9 @@ class PipelineStorage
 
     GetPipelineInstructions(pipelineName:string)
     {
-        let instructions = fs.readFileSync("data_pipelines/"+ pipelineName + ".yml")
+        const instructions = fs.readFileSync("data_pipelines/"+ pipelineName + ".yml", 'utf8')
         const instructionsParsed = YAML.parse(instructions);
+        return instructionsParsed.instructions;
     }
 
     GetAllPipelineNames()

@@ -33,18 +33,23 @@ class EventManager
         })
     }
 
-    startLayoutAnalysis(message: any, responseObject : Express.Response)
+    startScoreAnalysis(message: any, instructions:any, responseObject : Express.Response)
     {
         let messageToken = this.GenerateToken();
 
         this.connectionStorage.Store(messageToken, responseObject)
         
+        const nextDirection = instructions[0]
+        console.log(nextDirection)
+        instructions.splice(0,1);
+
         const data = {
             id: messageToken, 
-            image: message
+            image: message,
+            pipeline: instructions
         }
 
-        axios.default.post("http://readsco:8011/layoutanalysis/layoutAnalyze", data).then((res)=>{})
+        axios.default.post("http://readsco:8011/"+ nextDirection +"/in", data).then((res)=>{})
     }
 
     private GenerateToken()
@@ -72,6 +77,11 @@ class EventManager
     getOMRPipelines()
     {
         return this.pipelineStorage.GetAllPipelineNames();
+    }
+
+    getPipelineInstructions(name:string)
+    {
+        return this.pipelineStorage.GetPipelineInstructions(name);
     }
 
     getReadScoServices()

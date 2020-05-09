@@ -8,14 +8,22 @@ app = Flask(__name__)                                           #|              
 
 predictor = LayoutAnalysis()
 
-@app.route('/layoutAnalyze', methods=['POST'])
+@app.route('/in', methods=['POST'])
 def predictLayout():
     message = request.json
     print('[SUCCESS] - Layout Analysis request received')
     image, boundings = predictor.predict(message["image"])
-    response = {"id": message["id"], "image": message["image"], "boundings": boundings}
+    nextLocation = message["pipeline"][0]
+    print(nextLocation)
+    arrayToSend = message["pipeline"]
+    arrayToSend.remove(nextLocation)
+    response = {"id": message["id"], "image": message["image"], "boundings": boundings, "pipeline": arrayToSend}
+    if nextLocation == '<end>':
+        requests.post('http://readsco:8011/translationhub/scoreResult', json=response)
+    else:
+        requests.post('http://readsco:8011/' + nextLocation +'/in', json=response)
+    
     print('[SUCCESS] - Layout Analysis finished')
-    requests.post('http://readsco:8011/scorerecognition/getSymbols', json=response)
     return "ACK", 200
 
 @app.route('/ping', methods=['GET'])

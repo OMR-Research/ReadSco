@@ -47,9 +47,9 @@ class BasicHTTPController
     {
         console.log('Received eval notification');
         let image = req.body.image;
-        const pipeline = req.body.pipelines;
+        const pipeline = this.m_eventManager.getPipelineInstructions(req.body.pipelineToUse)
         
-        this.m_eventManager.startLayoutAnalysis(image, res);
+        this.m_eventManager.startScoreAnalysis(image, pipeline, res);
     }
 
     scoreResult = (req: express.Request, res: express.Response)=>
