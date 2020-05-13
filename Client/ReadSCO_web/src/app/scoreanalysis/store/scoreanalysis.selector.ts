@@ -7,3 +7,8 @@ export const selectOriginalImage = createSelector(
     scoreanalysisStateRepresentation,
     (state: ScoreAnState) => state.imageCropped
 );
+
+export const selectorPipelines = createSelector(
+    scoreanalysisStateRepresentation,
+    (state: ScoreAnState) => state.pipelines
+)

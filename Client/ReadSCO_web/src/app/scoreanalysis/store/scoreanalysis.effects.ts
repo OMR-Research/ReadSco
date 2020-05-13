@@ -4,6 +4,8 @@ import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { ScoreAnalysisService } from '../services/scoreanalysis.service';
 import { ScoreAnalysisResponse } from './model/scoreanalysisResponse';
+import { PipelinesResponse } from './model/pipelinesResponse';
+
 import { ScoreRecognitionRequestEnd } from 'src/app/scorevisualization/store/scorevisualization.actions';
 
 @Injectable()
@@ -33,6 +35,18 @@ export class ScoreAnalysisEffects
             return this.scoreAService.attemptScoreAnalysis$(payload).pipe(
                 map((response: ScoreAnalysisResponse) => {
                     return new ScoreRecognitionRequestEnd(response.response);
+                })
+            )
+        })
+    )
+
+    @Effect()
+    attemptGetWorkingPipelines$ = this.actions$.pipe(
+        ofType(SAActions.ActionType.GET_AVAILABLE_PIPELINES_START),
+        switchMap((action: SAActions.StartGetWorkingPipelines)=>{
+            return this.scoreAService.getScorePipelines$().pipe(
+                map((response: PipelinesResponse)=> {
+                    return new SAActions.GetWorkingPipelinesSuccess(response.pipelines);
                 })
             )
         })

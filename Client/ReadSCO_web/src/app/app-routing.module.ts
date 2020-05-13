@@ -7,6 +7,8 @@ const routes: Routes = [
   { path: 'scoreanalysis/crop', loadChildren: './scoreanalysis/scoreanalysis.module#ScoreanalysisPageModule' },
   { path: 'scoreanalysis/confirm', loadChildren: './scoreanalysis/scoreanalysis.module#ScoreanalysisPageModule' },
   { path: 'scorevisualization', loadChildren: './scorevisualization/scorevisualization.module#ScorevisualizationPageModule' },
+  { path: 'pipeline-creation', loadChildren: './pipeline-creation/pipeline-creation.module#PipelineCreationPageModule' },
+  { path: 'pipeline-creation', loadChildren: './pipeline-creation/pipeline-creation.module#PipelineCreationPageModule' },
 ];
 
 @NgModule({

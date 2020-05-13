@@ -32,7 +32,7 @@
               }
             ],
             "styles": [
-              "./src/theme/ReadSCOtheme.scss",
+              "./src/theme/ReadSCOtheme.scss"
               {
                 "input": "src/theme/variables.scss"
               },
