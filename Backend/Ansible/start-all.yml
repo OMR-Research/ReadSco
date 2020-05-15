@@ -28,7 +28,7 @@
     - name: Start New Layout Analysis
       docker_container:
         name: layoutanalysis
-        image: "readsco/layoutanalysis:1.01"
+        image: "readsco/layoutanalysis:1.5"
         ports:
           - "5005:5005"
         networks:
@@ -42,7 +42,7 @@
     - name: Start New Score Recognition
       docker_container:
         name: scorerecognition
-        image: "readsco/scorerecognition:1.01"
+        image: "readsco/scorerecognition:1.5"
         ports:
           - "5006:5006"
         networks:

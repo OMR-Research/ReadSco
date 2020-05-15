@@ -67,8 +67,8 @@ export class SendComponent implements OnInit, OnDestroy {
     {
       this.errorNoPipeline = true;
     }
-    //this.scoreStore.dispatch(new StartScoreAnalysis(this.sendImage))
-    //this.router.navigate(['./scorevisualization'])
+    this.scoreStore.dispatch(new StartScoreAnalysis(this.sendImage))
+    this.router.navigate(['./scorevisualization'])
   }
 
 }

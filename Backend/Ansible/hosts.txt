@@ -1,5 +1,0 @@
-[OMRServer]
-justforhavingsth.net
-
-[OtherServer]
-thisisnormalserver.net

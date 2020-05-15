@@ -9,10 +9,11 @@ import { PipelineCreationPage } from './pipeline-creation.page';
 import { MenuModule } from '../menu/menu.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from '../material.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: '/pipelineCreation',
+    path: '', 
     component: PipelineCreationPage
   }
 ];
@@ -25,8 +26,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MenuModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
-  declarations: [PipelineCreationPage]
+  declarations: [PipelineCreationPage, DashboardComponent]
 })
 export class PipelineCreationPageModule {}
