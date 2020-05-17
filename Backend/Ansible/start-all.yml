@@ -70,7 +70,7 @@
     - name: Start New Translation Hub
       docker_container:
         name: entrypoint
-        image: "readsco/translationhub:1.01"
+        image: "readsco/translationhub:1.5"
         ports:
           - "3000:3000"
         networks:

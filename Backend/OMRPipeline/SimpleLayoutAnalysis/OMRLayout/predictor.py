@@ -32,8 +32,11 @@ class SimpleLayoutAnalysis:
         for contour in contours:
             if self.isStaff(contour, img.shape):
                 x,y,w,h = cv2.boundingRect(contour)
-                definitiveBoundings.append([x,y,w,h])
+                definitiveBoundings.insert(0,[x,y,w,h])
         
+        for bounding in definitiveBoundings:
+            print(bounding)
+
         return definitiveBoundings
 
 

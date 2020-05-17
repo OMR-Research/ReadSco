@@ -1,5 +1,5 @@
-import API from './API'
-import BasicHTTPController from './controllers/HTTPController'
+import {API} from './API'
+import {BasicHTTPController} from './controllers/HTTPController'
 
 const port = process.env.PORT || 3000;
 

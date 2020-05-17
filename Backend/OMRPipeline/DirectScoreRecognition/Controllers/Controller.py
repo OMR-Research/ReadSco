@@ -25,7 +25,9 @@ def sendResultToJS():
     results = []  
 
     print("Analyzing " + str(len(boundings)))
-    for bounding in boundings:
+    i = 0
+    for i in range(0, len(boundings)):
+        bounding = boundings[len(boundings)-1-i]
         x,y,w,h = bounding
         crop = imageToCrop[y:y+h,x:x+w]
         prediction = predictor.predict(crop)
@@ -35,6 +37,8 @@ def sendResultToJS():
     print(nextLocation)
     arrayToSend = message["pipeline"]
     arrayToSend.remove(nextLocation)
+
+    print(results)
 
     response = {"id": message["id"], "message": results, "pipeline":arrayToSend}
     if nextLocation == '<end>':

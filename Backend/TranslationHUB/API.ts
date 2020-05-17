@@ -1,9 +1,9 @@
 import express from "express"
 import * as bodyparser from "body-parser"
-import BasicHTTPController from './controllers/HTTPController'
-import EurekaClient from './controllers/EurekaClient'
+import {BasicHTTPController} from './controllers/HTTPController'
+import {EurekaClient} from './controllers/EurekaClient'
 
-class API 
+export class API 
 {
     public p_api = express.application;
     private m_port: number;
@@ -50,5 +50,3 @@ class API
         })
     }
 }
-
-export default API;

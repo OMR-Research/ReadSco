@@ -1,10 +1,10 @@
 import multer from "multer";
 import express from "express";
-import EventManager from './EventManager'
-import ConnectionStorage from "../managers/ConnectionStorage";
-import ServiceStorage from "../managers/ServicesStorage";
+import {EventManager} from './EventManager'
+import {ConnectionStorage} from "../managers/ConnectionStorage";
+import {ServiceStorage} from "../managers/ServicesStorage";
 
-class BasicHTTPController
+export class BasicHTTPController
 {
     private storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -94,4 +94,4 @@ class BasicHTTPController
     }
 }
 
-export default BasicHTTPController;
+//export default BasicHTTPController;

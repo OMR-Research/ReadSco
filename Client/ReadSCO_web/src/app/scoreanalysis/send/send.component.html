@@ -1,32 +1,34 @@
-<section>
-  <app-menu></app-menu>
-    <br>
-    <article>
-      <h1>3. Send this image?</h1>
+<ion-content>
+  <section>
+    <app-menu></app-menu>
       <br>
-    </article>
-    <article>
-      <img [src]= displayedImage>
-    </article>
-    <article>
-      <mat-form-field>
-        <mat-label>Select your working pipeline</mat-label>
-        <mat-select [(ngModel)]="result">
-          <mat-option *ngFor="let item of pipelines" [value]="item">
-            {{item}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <p *ngIf="errorNoPipeline" class="error">
-        You must select a pipeline before requesting an analysis
-      </p>  
-    </article>
-    <article>
-      <ion-button color="tertiary" (click)="GoBack()">
-        Back
-      </ion-button>
-      <ion-button (click)="SendImage()">
-        Send
-      </ion-button>
-    </article>
-  </section>
+      <article>
+        <h1>3. Send this image?</h1>
+        <br>
+      </article>
+      <article>
+        <img [src]= displayedImage>
+      </article>
+      <article>
+        <mat-form-field>
+          <mat-label>Select your working pipeline</mat-label>
+          <mat-select [(ngModel)]="result">
+            <mat-option *ngFor="let item of pipelines" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <p *ngIf="errorNoPipeline" class="error">
+          You must select a pipeline before requesting an analysis
+        </p>  
+      </article>
+      <article>
+        <ion-button color="tertiary" (click)="GoBack()">
+          Back
+        </ion-button>
+        <ion-button (click)="SendImage()">
+          Send
+        </ion-button>
+      </article>
+    </section>
+</ion-content>

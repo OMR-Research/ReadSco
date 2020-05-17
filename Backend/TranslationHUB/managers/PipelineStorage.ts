@@ -1,8 +1,8 @@
-import ServiceStorage from "./ServicesStorage"
+import {ServiceStorage} from "./ServicesStorage"
 import YAML from 'yaml'
 import fs from 'fs'
 
-class PipelineStorage
+export class PipelineStorage
 {
     constructor()
     {
@@ -41,5 +41,3 @@ class PipelineStorage
         return fileNames;
     }
 }
-
-export default PipelineStorage;

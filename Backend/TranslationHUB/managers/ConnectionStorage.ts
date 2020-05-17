@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-class ConnectionStorage
+export class ConnectionStorage
 {
     private m_connectionMap = new Map();
 
@@ -26,4 +26,4 @@ class ConnectionStorage
     }
 }
 
-export default ConnectionStorage;
+//export default ConnectionStorage;

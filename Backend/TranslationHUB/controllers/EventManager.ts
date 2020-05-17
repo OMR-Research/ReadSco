@@ -1,12 +1,11 @@
-import ConnectionStorage from "../managers/ConnectionStorage";
+import {ConnectionStorage} from "../managers/ConnectionStorage";
 
 import * as jwt from 'jsonwebtoken'; 
 import * as axios from 'axios'
-import ServiceStorage from "../managers/ServicesStorage";
-import PipelineStorage from "../managers/PipelineStorage";
+import {ServiceStorage} from "../managers/ServicesStorage";
+import {PipelineStorage} from "../managers/PipelineStorage";
 
-
-class EventManager
+export class EventManager
 {
     private connectionStorage : ConnectionStorage;
     private serviceStorage: ServiceStorage;
@@ -63,9 +62,25 @@ class EventManager
     sendResponse(message: any)
     {
         let responseObject = this.connectionStorage.Fetch(message.id);
+        const kernRaw = message.message;
+        console.log(kernRaw);
+        let kernString = "";
+        let iterator = 0;
+        //Process the kern message to be a full string
+        kernRaw.forEach((kernElement:string) => {
+            if(kernElement.charAt(0)=="*" && iterator < 5)
+                kernString += kernElement + "\n";
+            else if (kernElement.charAt(0)!="*")
+                kernString += kernElement + "\n";
+            
+            iterator++;
+        });
+
+        console.log(kernString);
+
         if(responseObject != undefined)
         {
-            responseObject.status(200).send({"response": message.message});
+            responseObject.status(200).send({"response": kernString});
         }
     }
 
@@ -90,5 +105,3 @@ class EventManager
     }
 
 }
-
-export default EventManager

@@ -1,5 +1,5 @@
 
-class EurekaClient
+export class EurekaClient
 {
     private client: any;
 
@@ -42,5 +42,3 @@ class EurekaClient
         this.client.stop();
     }
 }
-
-export default EurekaClient;

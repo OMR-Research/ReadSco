@@ -1,5 +1,5 @@
 
-class ServiceStorage
+export class ServiceStorage
 {
     private registeredServices:string[];
 
@@ -38,5 +38,3 @@ class ServiceStorage
         return this.registeredServices;
     }
 }
-
-export default ServiceStorage;
