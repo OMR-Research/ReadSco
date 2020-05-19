@@ -1,3 +1,31 @@
 #paper{
-    background-color: cornflowerblue;
+    background-color:#a8dadc;
+}
+
+#cpPanel{
+    position: absolute;
+    top: 150px;
+    left: 50px;
+    z-index: 5000;
+    background-color: #f1faee;
+    padding: 5px;
+    border-radius: 1px;
+    align-content: center;
+    text-align: center;
+  }
+
+.option{
+    display: flex;
+    justify-content: space-between;
+}
+    .option>.title{
+        margin-right: 1em;
+    }
+        .option>div>p{
+            margin-top: .5em;
+            margin-bottom: 0em;
+        }
+
+.panneloptions{
+    padding: 1em;
 }

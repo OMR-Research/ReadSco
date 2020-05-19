@@ -18,6 +18,7 @@ import * as fromApp from './store/app.reducer'
 import { EffectsModule } from '@ngrx/effects';
 import {ScoreAnalysisEffects} from './scoreanalysis/store/scoreanalysis.effects'
 import { ScoreVisualizationEffects } from './scorevisualization/store/scorevisualization.effects';
+import {PipelineCreationEffects} from './pipeline-creation/store/pipelinecreation.effects'
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MenuModule } from './menu/menu.module';
 
@@ -32,7 +33,7 @@ import { MenuModule } from './menu/menu.module';
     MaterialModule, 
     FlexLayoutModule,
     StoreModule.forRoot(fromApp.appReducer),
-    EffectsModule.forRoot([ScoreAnalysisEffects, ScoreVisualizationEffects]),
+    EffectsModule.forRoot([ScoreAnalysisEffects, ScoreVisualizationEffects, PipelineCreationEffects]),
     HttpClientModule
     ],
   providers: [

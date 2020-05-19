@@ -1,3 +1,16 @@
+<div id="cpPanel">
+    <h3>Control pannel</h3>
+    <div class="panneloptions" *ngFor="let service of servicesNames">
+        <div class="option">
+            <div class="title"><p>{{service}}</p></div>
+            <div><ion-button (click)="createNewCell(service)">Add</ion-button></div>
+        </div>
+    </div>
+   
+    <ion-button>
+        Create pipeline
+    </ion-button>
+</div>
 <div id="paper">
 
 </div>
